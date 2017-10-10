@@ -1,0 +1,103 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!-- saved from url=(0022)http://internet.e-mail -->
+<HTML>
+<HEAD>
+<TITLE>HELP</TITLE>
+<link rel="stylesheet" href="/gic/Pages/styles/fonts.css?buildstamp=2_0_0" type="text/css">
+<link rel="stylesheet" href="/gic/Pages/styles/links.css?buildstamp=2_0_0" type="text/css">
+<script language="JavaScript" src="/gic/Pages/js/validation.js?buildstamp=2_0_0"></script>
+
+<link href="style/main.css?buildstamp=2_0_0" rel="stylesheet" type="text/css">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" text="#000000" background="images/inner_BG.gif?buildstamp=2_0_0" leftmargin="15" topmargin="5" marginwidth="15" marginheight="5">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td><img src="/gic/Pages/images/spacer.gif?buildstamp=2_0_0" width="5" height="5"></td>
+  </tr>
+  <tr> 
+    <td background="images/grey_dot1.gif?buildstamp=2_0_0"><img src="/gic/Pages/images/spacer.gif?buildstamp=2_0_0" width="1" height="1"></td>
+  </tr>
+  
+</table>
+<table width="100%" border="0" cellspacing="4" cellpadding="4">
+  <tr> 
+    <td class="text1" colspan="2" height="30"> 
+      <table width="100%" border="0" cellpadding="8" cellspacing="10" class="formbottom">
+        <tr> 
+          <td class="text1" bgcolor="#d21e25"> 
+            <p style="color:#ffffff;"><b>The Domestic Intermediate Destinations Page allows a User/Administrator to add intermediate destinations.</b></p>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="3" cellspacing="8" class="formbottom">
+        <tr align="left"> 
+          <td height="38" bgcolor="#f08012" class="formTit"><b><font color="#FFFFFF">Domestic Intermediate Destinations</font></b></td>
+        
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td height="30" colspan="2" valign="top" class="text1"> 
+      <table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <tr valign="top"> 
+          <td class="formTit" width="20%" bgcolor="#5a5959"> 
+          Intermediate Destinations          </td>
+          <td class="formtxt2" bgcolor="#FDF9FA" height="30" width=80%> 
+            <p>This page allows a <b>User</b> to add Domestic intermediate destinations.The user is required to provide the following information.</p>
+            <ol>
+                           
+                <li><b><a name="1a"></a></b><b>Departure City</b>- It is a mandatory 
+                field and cannot be left blank.User needs to enter the intermediate departure city of the journey.
+                <br>
+                <br></li>
+
+                 <li><b><a name="1b"></a></b><b>Arrival City</b>- It is a mandatory 
+                field and cannot be left blank.User needs to enter the intermediate arrival city of the journey.
+                <br>
+                <br></li>
+
+                <li><b><a name="1c"></a></b><b>Departure Date</b>- It is a mandatory 
+                field and cannot be left blank.User needs to select the departure date of the journey from the STARS date picker.
+                <br>
+                <br>
+                <li><b><a name="1d"></a>Mode</b> - It is a mandatory field and the user has to select the mode of transport that the traveller will take during departure/Arrival from the list,
+                 by default its value is set to &quot;Air&quot;<br>
+                <br>
+              </li>
+                   <li><b><a name="1e"></a></b><b>Name of Airline/Train</b>- It is a mandatory 
+                field and can not be left blank.Request the user for the name of the Airline/Train whichever mode of transport is preferred for the journey.
+                <br>
+                <br>
+                <li><b><a name="1f"></a>Class</b> - It is a mandatory 
+                field and the user needs to select the class of the mode of transport from the list.by default its value is set to &quot;Eco&quot;<br>
+              
+               
+            </ol>
+          <p align="right"><b>[ <a href="#">TOP</a> ]&nbsp;</b>        </td>
+        </tr>
+        
+                
+        <tr valign="top">
+          <td class="formTit" bgcolor="#5a5959" height="30">Intermediate Destinations Details</td>
+          <td class="formtxt2" bgcolor="#FCF5F6" height="30"><ol>
+            <li><b name="1g"><a name="1g"></a>Intermediate destination Details</b> -All the domestic intermediate destinations details entered by the user will be shown in the table &quot;Intermediate destination Details&quot;
+              
+              </li>
+          </ol>
+        <tr valign="top"> 
+          <td class="text1" width="20%" bgcolor="#5a5959" height="30"><b class="formTit">Control Buttons <a name="8"></a></b></td>
+          <td class="formtxt2" bgcolor="#FDF9FA" height="30" width=80%>
+        <ol>
+         <li><b><a name="8a"></a>Add</b> - This button will add  the entered intermediate journey details in the table Intermediate Destinations details.It is necessary to fill all the above mentioned mandatory information before adding them.<br>                      
+               <br>
+          </li> 
+            <li><b><a name="8b"></a>Close</b> - This button will  close the Domestic intermediate destination page and come back on the Domestic Travel request page.<br>                      
+               <br>
+          </li> 
+           </ol>
+   
+ <p align="right"><b>[ <a href="#">TOP</a> ]&nbsp;</b></p>
+</table>
+</BODY>
+</HTML>

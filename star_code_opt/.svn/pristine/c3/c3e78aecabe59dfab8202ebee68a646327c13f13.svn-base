@@ -1,0 +1,53 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!-- saved from url=(0022)http://internet.e-mail -->
+<HTML>
+<HEAD>
+<TITLE>HELP</TITLE>
+<script language="JavaScript" src="/gic/Pages/js/validation.js?buildstamp=2_0_0"></script>
+
+<link href="style/main.css?buildstamp=2_0_0" rel="stylesheet" type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></HEAD>
+<BODY BGCOLOR="#FFFFFF" text="#000000" background="images/inner_BG.gif?buildstamp=2_0_0" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+</table>
+<tr><td class="text1" colspan="2" height="30"><table width="100%" border="0" cellpadding="8" cellspacing="10" class="formhead">
+        <tr> 
+          <td class="text1" bgcolor="#d21e25"> 
+            <p style="color:#ffffff;"><b>The Login Page allows a User/Administrator to Login on  STARS:</b></p>
+          </td>
+        </tr>
+      </table>
+     
+<tr> 
+    <td class="text1" colspan="2" height="30"> 
+      <table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <tr valign="top"> 
+          <td class="formTit" width="20%" bgcolor="#5a5959" height="30"> 
+            <p><b>Enter your user details<a name="1"></a></b></p><br>
+            <br>
+            <p>&nbsp;</p>          </td>
+          <td class="formtxt2" bgcolor="#FDF9FA" height="30" width=80%> 
+            <p>This page allows a <b>User</b> to Login on  <b>STARS</b>. The user is required to enter the following information:</p>
+            <ol>
+              <li><b><a name="1a"></a>Username</b> - To login on  STARS, the user has to enter his/her Username which was entered at the time of registration, in the Username field .This field is Case sensitive.<br>
+                <br>
+              </li>
+              <li><b><a name="1b"></a>Password</b> - To login on  STARS, the user has to enter his/her Password which was entered at the time of registration,in the Password field .This field is Case sensitive.  </li>
+            </ol>
+            </td>
+  </tr>
+        <tr valign="top">
+          <td class="formTit" bgcolor="#5a5959" height="30"><b>New Registration<a name="2"></a></b></td>
+          <td class="formtxt2" bgcolor="#FDF9FA"  height="30"><ol>
+            <li><b name="1c"><a name="1c"></a>New registration</b> - It allows the <b>New User</b> to register himself in STARS. The user is required to enter the necessary information in the NEW User Registration Page which will appear on clicking the link &quot;New Registration&quot;. After  registration user will be activated only by Local Administrator. </li><!-- text updated changed by shiv on 24-May-07 -->
+          </ol></td>
+        </tr>
+        <tr valign="top">
+          <td class="formTit" bgcolor="#5a5959" height="30"><b>Help Desk<a name="2"></a></b></td>
+          <td class="formtxt2" bgcolor="#FDF9FA" height="30"><ol>
+            <li><b name="1d"><a name="1d"></a>Helpdesk</b> - It allows the user to contact  the administrator through mail in case of any problem or to ask any query.</li>
+          </ol></td>
+        </tr>
+</table>
+</BODY>
+</HTML>

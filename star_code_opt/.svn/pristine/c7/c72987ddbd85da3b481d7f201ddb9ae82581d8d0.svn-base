@@ -1,0 +1,516 @@
+BODY {
+	MARGIN: 0px
+}
+TABLE {
+	MARGIN: 0px
+}
+UL {
+	MARGIN: 0px
+}
+LI {
+	MARGIN: 0px
+}
+.starcolour {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ff0000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.formfirstfield {
+	PADDING-LEFT: 20px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ec7b00; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.formfirstfield2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ec7b00; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.label1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #353436; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.label2 {
+	PADDING-RIGHT: 2px; FONT-SIZE: 11px; COLOR: #373737; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.label3 {
+	PADDING-RIGHT: 2px; FONT-SIZE: 10px; COLOR: #373737; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;border-style: solid;border-color:#F0F0F0;
+}
+.label5 {
+	PADDING-RIGHT: 2px; FONT-SIZE: 11px; COLOR: #373737; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;border-style: solid;border-color:#F0F0F0; 
+}
+.label6 {
+	PADDING-RIGHT: 2px; FONT-SIZE: 10px; COLOR: #373737; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+}
+.label2 a{
+	PADDING-RIGHT: 2px; FONT-SIZE: 11px; COLOR: #d62234; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.forminnerbrdff {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 20px; BORDER-BOTTOM: #F0F0F0 1px solid
+}
+.formtxt {
+	PADDING-LEFT: 20px; FONT-SIZE: 10px; COLOR: #373737; BORDER-BOTTOM: #F0F0F0 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.formtxt a {
+	PADDING-LEFT: 20px; FONT-SIZE: 10px; COLOR: #d62234;  FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.formtxt2 {
+	FONT-SIZE: 10px; COLOR: #494949; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.formTit {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.upperborder {
+	BORDER-BOTTOM: #adc5e1 1px solid
+}
+.bodyline-top {
+	BORDER-BOTTOM: #a9a9a9 1px solid
+}
+.bodyline-bottom {
+	BORDER-TOP: #a9a9a9 1px solid
+}
+.newformbot {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; HEIGHT: 31px; BACKGROUND-COLOR:#efefef
+}
+.newform {
+	PADDING-RIGHT: 12px; FONT-SIZE: 11px; COLOR: #2b8bbf; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: right
+}
+.formtxt3 {
+	PADDING-LEFT: 5px; FONT-SIZE: 10px; COLOR: #1e64bb; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff
+}
+.dataLabel {
+	PADDING-RIGHT: 8px; FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: #7a7a7a; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+A.menu:link {
+	PADDING-LEFT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ec7b00; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+A.menu:hover {
+	PADDING-LEFT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ec7b00; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+A.menu:visited {
+	PADDING-LEFT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ec7b00; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+A.menu:hover {
+	PADDING-LEFT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ec7b00; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+A.selectedmenu:link {
+	PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #08547a; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: underline
+}
+.selectedmenubg {
+	BACKGROUND-COLOR: #bddeec
+}
+A.selectedmenu:link {
+	PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 9px; COLOR: #08547a; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+A.selectedmenu:visited {
+	PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 9px; COLOR: #08547a; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+A.selectedmenu:hover {
+	PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 9px; COLOR: #08547a; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+A.selectedmenu:hover {
+	PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 9px; COLOR: #08547a; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+.bottommenuBG {
+	BACKGROUND-COLOR: #bddeec
+}
+.formButton {
+	BORDER-RIGHT: #db2128 1px solid; BORDER-TOP: #db2128 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 84%; /* FILTER: progid:DXImageTransform.Microsoft.Gradient(
+		GradientType=0,StartColorStr='#ffffffff',EndColorStr='#fe5a52'); */BORDER-LEFT: #db2128 1px solid; COLOR: #ffffff; BORDER-BOTTOM: #db2128 1px solid; FONT-FAMILY: 'trebuchet ms',helvetica,sans-serif; BACKGROUND-COLOR: #db2128
+}
+.textBoxCss {
+	FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.textBoxCss2 {
+	FONT-SIZE: 11px; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: right
+}
+.pageHead {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #111111; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.pagebullet {
+	PADDING-LEFT: 15px; LIST-STYLE-IMAGE: url(../images/bullet.gif)
+}
+.formborder {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.formhead {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND: #dddddd; COLOR: #373737; BORDER-BOTTOM: #b1b1b1 1px solid; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.formtr1 {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; BACKGROUND: #f7f7f7; COLOR: #373737; LINE-HEIGHT: 21px; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: left
+}
+.formbottom {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND: #dddddd; COLOR: #373737; LINE-HEIGHT: 40px; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+.formtr2 {
+	FONT-SIZE: 10px; BACKGROUND: #f2f2f2; COLOR: #373737; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-ALIGN: left
+}
+.formButtontxt {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #189cdc; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}
+.formtr3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND: #f2f2f2; COLOR: #373737; LINE-HEIGHT: 21px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.formhead1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; BACKGROUND: #d6eaf3; COLOR: #137db1; BORDER-BOTTOM: #87bdd9 1px solid; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.formtr11 {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; BACKGROUND: #f7f7f7; COLOR: #373737; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.formbottom1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; BACKGROUND: #d6eaf3; COLOR: #137db1; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.formtr22 {
+	FONT-SIZE: 11px; BACKGROUND: #f2f2f2; COLOR: #373737; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.formtr33 {
+	FONT-SIZE: 11px; BACKGROUND: #f2f2f2; COLOR: #373737; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.transfer {
+	BORDER-RIGHT: #363 1px solid; BORDER-TOP: #696 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 84%; BACKGROUND: #d6eaf3; FILTER: progid:DXImageTransform.Microsoft.Gradient(
+	GradientType=0,StartColorStr='#ffffffff',EndColorStr='#DDF3FF'); BORDER-LEFT: #696 1px solid; COLOR: #6600ff; BORDER-BOTTOM: #363 1px solid; FONT-FAMILY: Arial, Helvetica, sans-serif; button: #050
+}
+.FooterNav {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 15px; FONT-SIZE: 10px; COLOR: #d40000; LINE-HEIGHT: 17px; PADDING-TOP: 5px; FONT-FAMILY: verdana, Arial, Helvetica, sans-serif, Tahoma
+}
+.FooterNav A {
+	FONT-SIZE: 10px; COLOR: #d40000; FONT-FAMILY: verdana, Arial, Helvetica, sans-serif, Tahoma; TEXT-DECORATION: none
+}
+.FooterNav A:hover {
+	FONT-SIZE: 10px; COLOR: #d40000; FONT-FAMILY: verdana, Arial, Helvetica, sans-serif, Tahoma; TEXT-DECORATION: underline
+}
+.printpage {
+	BORDER-RIGHT: #d1dfe5 1px solid; BORDER-TOP: #d1dfe5 1px solid; BORDER-LEFT: #d1dfe5 1px solid; BORDER-BOTTOM: #d1dfe5 1px solid
+}
+.reporttbl {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #f2f2f2
+}
+.reporttblast {
+	BORDER-RIGHT: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #f3f5f6
+}
+.reportheading {
+	PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #ffffff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #7aa9be
+}
+.reportheading2 {
+	BORDER-TOP: #999999 1px solid; PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #373737; BORDER-BOTTOM: #999999 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #dddddd
+}
+.reportheading2First {
+	PADDING-LEFT: 7px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #373737; BORDER-BOTTOM: #999999 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #dddddd
+}
+.reportheading3 {
+	PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 9px; COLOR: #373737; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #e8e8e8
+}
+.reportLBL {
+	PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 9px; VERTICAL-ALIGN: text-top; COLOR: #373737; PADDING-TOP: 5px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.reportdata {
+	PADDING-LEFT: 2px; FONT-SIZE: 8px; VERTICAL-ALIGN: text-top; COLOR: #000000; PADDING-TOP: 0px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.gg {
+	PAGE-BREAK-BEFORE: always
+}
+
+.label5 div a:link {
+	 FONT-SIZE: 11px; COLOR: #d62234; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.label5 div a:visited {
+	FONT-SIZE: 11px; COLOR: #d62234; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+}
+
+.label5 div a:active {
+	FONT-SIZE: 11px; COLOR: #d62234; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+}
+
+.label5 div a:hover {
+	FONT-SIZE: 11px; COLOR: #d62234; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+}
+
+
+.label6 a:link {
+	 FONT-SIZE: 10px; COLOR: #d62234; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.label6 a:visited {
+	FONT-SIZE: 10px; COLOR: #d62234; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+}
+
+.label6 a:active {
+	FONT-SIZE: 10px; COLOR: #d62234; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+}
+
+.label6 a:hover {
+	FONT-SIZE: 10px; COLOR: #d62234; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.linkLabel a:link
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:11px;
+font-weight:bold;
+color:#d62234;
+}
+
+.linkLabel a:visited 
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:11px;
+font-weight:bold;
+color:#d62234;
+}
+
+.linkLabel a:active  
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:11px;
+font-weight:bold;
+color:#d62234;
+}
+
+.linkLabel a:hover   
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:11px;
+font-weight:bold;
+color:#d62234;
+}
+
+.formtr1 a:link
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+font-weight:normal;
+color:#d62234;
+}
+
+.formtr1 a:visited 
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+font-weight:normal;
+color:#d62234;
+}
+
+.formtr1 a:active  
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+font-weight:normal;
+color:#d62234;
+}
+
+.formtr1 a:hover   
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+font-weight:normal;
+color:#d62234;
+}
+
+.formtr2 a:link
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+font-weight:normal;
+color:#d62234;
+}
+
+.formtr2 a:visited 
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+font-weight:normal;
+color:#d62234;
+}
+
+.formtr2 a:active  
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+font-weight:normal;
+color:#d62234;
+}
+
+.formtr2 a:hover   
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+font-weight:normal;
+color:#d62234;
+}
+
+.statscontainer_div { 
+position:absolute;
+top:0px;
+right:10px;
+width:430px;
+height:280px;
+display:block;
+z-index:10000;
+}
+
+#statscontainer_iframe {
+position:absolute;
+top:0%;
+right:0%;
+width:430px;
+height:280px;
+}
+
+
+#read-overlay {
+	width: 99%;
+	min-height: 450px;
+}
+
+.read-window {
+	width: 97%;
+	height: 439px;
+	border-left: solid 15px #EFEFEF;
+	border-right: solid 19px #EFEFEF;
+	background: rgba(252, 252, 252, 1);
+}
+
+.readme-heading {
+	height: 20px;
+	background: #EFEFEF;
+	text-align: left;
+	padding: 10px;
+	font-weight: bold;
+}
+
+.readme-heading label {
+	font-size: 20px;
+	color: #000;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+.readme-container {
+	height: 360px;
+	overflow: auto;
+	border: solid 1px #A1A1A1;
+	clear:both;
+}
+
+.readme-footer {
+	background: #EFEFEF;
+	text-align: center;
+	padding: 8px;
+	clear:both;
+}
+
+.readme-footer button {
+	font-size: 14px;
+}
+
+.read-me-content {
+	padding: 10px 10px 30px 10px;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+.read-me-content h3 {
+	color: #CF3B19;
+}
+
+.read-me-content h4 {
+	color: #0019bf;
+	margin: 10px;
+}
+
+.read-me-content img {
+	
+}
+
+.read-me-content-img {
+	height: 450px;
+	width: 750px;
+	margin-left: -25px;
+}
+
+.page-label {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+.read-me-separator {
+	border-top: solid 1px #BBB;
+	margin: 80px 0 60px -49px;
+	width: 780px;
+}
+
+.read-me-date {
+	float: right;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+#travelReq-overlay {
+	width: 99.5%;
+	min-height: 140px;
+	background-color: #d3c9bb;
+}
+
+.travelReq-window {
+	width: 92%;
+	height: 120px;
+	border-left: solid 17px #d3c9bb;
+	border-right: solid 19px #d3c9bb;
+	background: rgba(252, 252, 252, 1);
+	background-color: #d3c9bb;
+}
+
+.travelReq-heading {
+	height: 17px;
+	background: #EFEFEF;
+	text-align: left;
+	padding: 10px;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	background-color: #d3c9bb;
+}
+
+.travelReq-heading label {
+	font-size: 17px;
+	color: #000;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+.travelReq-container {
+	height: 56px;
+	overflow: auto;
+	border: solid 1px #A1A1A1;
+	background-color: white;
+	clear:both;
+	
+}
+
+.travelReq-footer {
+	background: #EFEFEF;
+	text-align: center;
+	padding: 8px;
+	clear:both;
+}
+
+.travelReq-footer button {
+	font-size: 14px;
+}
+
+.travelReq-content {
+	padding: 10px 10px 20px 10px;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+.travelReq-content label{
+	padding: 10px 10px 20px 10px;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+.travelReq-content h3 {
+	color: #CF3B19;
+}
+
+.travelReq-content h4 {
+	color: #0019bf;
+	margin: 10px;
+}
+
+.travelReq-content img {
+	
+}
+
+.travelReq-content-img {
+	height: 450px;
+	width: 750px;
+	margin-left: -25px;
+}

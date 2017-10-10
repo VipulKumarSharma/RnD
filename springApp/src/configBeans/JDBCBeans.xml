@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    					http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
+
+   	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      	<property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver"/>
+      	<property name="url" value="jdbc:jtds:sqlserver://172.29.37.195:1433/test_DB;instance=SQL2012"/>
+      	<property name="username" value="sa"/>
+      	<property name="password" value="Mind#1234"/>
+   	</bean>
+
+   	<bean id="studentImpl" class="com.mind.JDBC.StudentDAOImpl">
+      	<property name="dataSource"  ref="dataSource" />    
+   	</bean>
+      
+  	<bean id="employeeImpl" class="com.mind.JDBC.EmployeeDAOImpl">
+      	<property name="dataSource"  ref="dataSource" />    
+   	</bean>
+   	
+</beans>

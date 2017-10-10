@@ -1,0 +1,385 @@
+	<%
+	/***************************************************
+	 *The information contained here in is confidential and 
+	 * proprietary to MIND and forms the part of the MIND 
+	 *Author				:DEEPALI DHAR
+	 *Date of Creation 		:11 September 2006
+	 *Copyright Notice 		:Copyright(C)2000 MIND.All rights reserved
+	 *Project	  			:STAR
+	 *Operating environment :Tomcat, sql server 2000 
+	 *Description 			:This is the  jsp file  for inserting the mail information in req_mailbox table
+							           2.Change in database query for date format
+	 *Modification 			: 3.Display the mail Subject in different format  
+	                          4. Added by shiv for showing Group Travel in case of group travel   on 25-Feb-08 
+							  5  code added for showing group travel  in case of domestie group travel_DOM  on shiv sharma on 19-Jun-08   
+							  6  added a space for formatting on 7/16/2009 by shiv sharma. 
+							  7. sending mail on origination for intimation for SMR FRANCE,UK,Spain added on 02-Nov-2009 
+	                                    
+	 *Reason of Modification: 
+	 *Date of Modification  :04/04/2007,09/04/2007
+	 *Modified By			: Vijay Singh
+	 *Revision History		:
+	 *Editor				:Editplus
+	 Modified by vaibhav on jul 19 2010 to enable SSO in Mails
+
+	 *******************************************************/ 
+	%>
+	<!-- INCLUDE STATEMENTS -->
+	<%@ include  file="importStatement.jsp" %>
+	<html>
+	<head>
+	<%-- include remove cache  --%>
+	<%@ include  file="cacheInc.inc" %>
+	<%-- include header  --%>
+	<%@ include  file="headerIncl.inc" %>
+	<%-- include page with all application session variables --%>
+	<%@ include  file="application.jsp" %>
+	<%-- include page styles  --%>
+	<%@ include  file="systemStyle.jsp" %>
+	
+	<!--Create the DbConnectionBean object for createConnection-->
+	<jsp:useBean id="dbConBean" scope="page" class="src.connection.DbConnectionBean" />
+	<jsp:useBean id="dbUtilityBean" scope="page" class="src.connection.DbUtilityMethods" /><!-- Added by vaibhav -->
+	
+	<SCRIPT language=JavaScript src="ScriptLibrary/FormCheck.js?buildstamp=2_0_0"></SCRIPT>
+	<%
+		// Variables declared and initialized
+	Connection con					=		null;			    // Object for connection
+	Statement stmt	,stmt1				=		null;			   // Object for Statement
+	ResultSet rs,rs1,rs2					=		null;			  // Object for ResultSet
+	CallableStatement cstmt_mail			=		null;			// Object for Callable Statement
+	
+	//Create Connection
+	Class.forName(Sdbdriver);
+	con=DriverManager.getConnection(Sdburl,Sdbuser,Sdbpwd);
+	
+	//DECLARE VARIABLES
+	String	sSqlStr							=	""; // For sql Statements
+	String strRequistionId					=	null;
+	String strRequisitionStatus				=	null;
+	String strRequistionNumber	 			=	null;
+	String strMailSubject					=	null;
+	String strRequistionGTDate				=	null;
+	String strMailRefNumber					=	null;
+	String strRequistionCreatorName	 		=	null;
+	String strRequistionCreatorMail			=	null;
+	String strRequistionCreatedDate			=	null;
+	String strRequisitionComments			=	null;
+	StringBuffer strMailMsg					= new StringBuffer();
+	String strstrRequistionApproverName		=	null;
+	String strstrRequistionApproverEmail	=	null;
+	String strstrRequistionApproverDesig	=	null;
+	String strstrRequistionNextApproverName	=	null;
+	String strstrRequistionNextApproverEmail=	null;
+	int		intTries						=	0;
+	strRequistionId							=	request.getParameter("purchaseId");
+	String strUserPin						=null;
+	String strSiteName						=	null;
+	String strReqVal						=	null;
+	String	strUserNm						=	"";
+	String	strTravelDate					=	"";
+	String	strTravellerSex					=	"";
+	String	strSex							=	"";
+	String	strSql							=	"";
+	String	strTravelFrom					=	"";
+	String	strTravelTo						=	"";
+	String	strReq							=	"";
+	String 	strRequistionCreatedDatewithoutPmAm="";
+	
+	String  strTravelReturnDate             ="";
+	String	strSqlSql						="";	
+	
+	String strGroupTravelFlag		="";
+	String strGroupTravel				="";		
+	//GET THE VALUES FROM THE PREVIOUS SCREEN
+	strRequistionId							=	request.getParameter("purchaseRequisitionId");
+	strRequisitionStatus					=	request.getParameter("rad").trim();
+	strRequisitionComments					=	request.getParameter("COMMENTS");
+	String ReqTyp							=	request.getParameter("ReqTyp");
+	String strMailID_OrignalApprover		=	"";
+	
+	String 	strCurrency			 = ""; 
+	String	strTotalAmount       =   "";
+	String	strBillingSite       =  "";
+	String strreasonFortravel	 = ""; 
+	
+	//FETCH THE LATEST MAIL ID FROM REQ_MAILBOX
+	sSqlStr="SELECT ISNULL(MAX(MAIL_ID),'999')+1 FROM REQ_MAILBOX";
+	stmt = con.createStatement(); 
+	rs = stmt.executeQuery(sSqlStr);
+		if(rs.next())
+		{
+			strMailRefNumber								=	rs.getString(1);//Mail Reference Number
+		}
+		rs.close();
+	stmt.close();
+	
+	
+						// FETCH Requistion Details
+						//@ Vijay 04-Apr-2007 Change in database query for date format
+				if(ReqTyp.equals("Domestic Travel"))
+				{
+				sSqlStr="SELECT T.TRAVEL_REQ_NO AS RNO,DBO.USER_NAME(TA.APPROVER_ID)AS NEXTAPPROVER,DBO.USEREMAIL(TA.APPROVER_ID) AS APPROVEREMAIL,DBO.USER_NAME(T.C_USERID) AS CREATOR,DBO.USEREMAIL(T.C_USERID)AS CREATOREMAIL,CONVERT(VARCHAR(30),T.C_DATETIME,113),.DBO.USER_NAME(TA.TRAVELLER_ID) AS TRAVELLER_NAME ,CONVERT(VARCHAR(30),T.TRAVEL_DATE,113),T.SEX,.DBO.SITENAME(T.SITE_ID) AS SITE_NAME ,ISNULL(T.GROUP_TRAVEL_FLAG,'N') AS GROUP_TRAVEL_FLAG,t.TA_CURRENCY as TA_CURRENCY,t.TOTAL_AMOUNT as TOTAL_AMOUNT,dbo.sitename(t.BILLING_SITE) as BILLING_SITE,REASON_FOR_TRAVEL,BILLING_SITE as BILLING_SITE_id ,BILLING_CLIENT,T.SITE_ID as SITE_ID FROM T_TRAVEL_DETAIL_DOM T,T_APPROVERS TA WHERE T.TRAVEL_ID=TA.TRAVEL_ID AND TA.APPROVE_STATUS=0 AND TA.ORDER_ID=DBO.MINREQORDERNO("+strRequistionId+") AND T.TRAVEL_ID="+strRequistionId+" AND TRAVEL_TYPE='D' AND T.STATUS_ID=10 ";
+				}
+			else
+				{
+				sSqlStr="SELECT T.TRAVEL_REQ_NO AS RNO,DBO.USER_NAME(TA.APPROVER_ID)AS NEXTAPPROVER,DBO.USEREMAIL(TA.APPROVER_ID)AS APPROVEREMAIL,DBO.USER_NAME(T.C_USERID) AS CREATOR,DBO.USEREMAIL(T.C_USERID)AS CREATOREMAIL,CONVERT(VARCHAR(30),T.C_DATETIME,113),.DBO.USER_NAME(TA.TRAVELLER_ID) AS TRAVELLER_NAME ,CONVERT(VARCHAR(30),T.TRAVEL_DATE,113),T.SEX,.DBO.SITENAME(T.SITE_ID) AS SITE_NAME ,ISNULL(T.GROUP_TRAVEL_FLAG,'N') AS GROUP_TRAVEL_FLAG,t.TA_CURRENCY as TA_CURRENCY,t.TOTAL_AMOUNT as TOTAL_AMOUNT,dbo.sitename(t.BILLING_SITE) as BILLING_SITE,REASON_FOR_TRAVEL,BILLING_SITE as BILLING_SITE_id ,BILLING_CLIENT,T.SITE_ID SITE_ID FROM T_TRAVEL_DETAIL_INT T,T_APPROVERS TA WHERE T.TRAVEL_ID=TA.TRAVEL_ID AND TA.APPROVE_STATUS=0 AND TA.ORDER_ID=DBO.MINREQORDERNO("+strRequistionId+") AND T.TRAVEL_ID="+strRequistionId+" AND TRAVEL_TYPE='I' AND T.STATUS_ID=10 ";
+				}
+	
+	
+	    //System.out.println("sSqlStr============="+sSqlStr);
+	
+	           	stmt= con.createStatement(); 
+				rs = stmt.executeQuery(sSqlStr);
+	
+				if(rs.next())
+				{
+					
+						strRequistionNumber				=	rs.getString(1);// Number
+						strRequistionCreatorName		=	rs.getString(2);///Receipent Name
+						strRequistionCreatorMail		=	rs.getString(3);//Receipent Email
+						strstrRequistionApproverName	=	rs.getString(4);//CREATOR NAME
+						strstrRequistionApproverEmail	=	rs.getString(5);//CREATOR EMAIL
+						String strRequistionCreatedDate1=	rs.getString(6);//Req Created Date & time
+		
+						//@ Vijay 30-Mar-2007 Add the substring Method for time format
+		
+						String str= strRequistionCreatedDate1.substring(0,17);
+	
+						String str1= strRequistionCreatedDate1.substring(0,11);
+						
+						strRequistionCreatedDate=str;	
+	
+						strRequistionCreatedDatewithoutPmAm=str1;	
+	
+	
+						//End Modification
+	
+						strUserNm						=	rs.getString(7);//TRAVELLER NAME
+						strTravelDate					=	rs.getString(8).substring(0,11); // TRAVEL DATE
+						strTravellerSex					=	rs.getString(9); // TRAVELLER SEX
+	                    strSiteName                     = 	rs.getString(10); 
+	
+	
+						//System.out.println("-----@Gaurav -------->"+strTravellerSex);		
+						if(strTravellerSex.equals("1"))
+							{
+						strSex	 =	 "Mr.";
+							}
+						else
+							{
+						strSex	 =	 "Ms";
+							}
+	
+	                if(ReqTyp.equals("Domestic Travel"))
+					{
+	                 strSql	=	"SELECT TRAVEL_FROM,TRAVEL_TO FROM T_JOURNEY_DETAILS_DOM WHERE TRAVEL_ID="+strRequistionId+"	";
+	                 
+					 // code added for showing group travel  in case of domestie group travel_DOM  on shiv sharma on 19-Jun-08  				  
+					      strGroupTravelFlag       =   rs.getString("GROUP_TRAVEL_FLAG"); 
+					     if(strGroupTravelFlag==null) 
+							{
+			               strGroupTravel =""; 
+				 		     }
+						 if(strGroupTravelFlag!=null  &&  (strGroupTravelFlag.trim().equals("Y")))
+							{
+	                        strGroupTravel ="A <B>Group/Guest</b> is scheduled to travel."; 
+	                        }
+							else
+						      { 
+	                             strGroupTravel = strSex+" "+" <b>"+strUserNm+ "</b> is scheduled to travel."; 
+							  }
+					
+	
+					strSqlSql="SELECT CONVERT(VARCHAR(11), TRAVEL_DATE, 113) FROM "+         		   
+							   " T_RET_JOURNEY_DETAILS_DOM WHERE  (TRAVEL_ID = "+strRequistionId+") and  (RETURN_FROM <> '') AND (RETURN_TO <> '')" ;
+	
+					}
+	                else
+					{
+					//  Added by shiv for showing Group Travel in case of group travel   on 25-Feb-08 ;  
+				
+	                     strGroupTravelFlag       =   rs.getString("GROUP_TRAVEL_FLAG"); 
+					     if(strGroupTravelFlag==null) 
+							{
+			               strGroupTravel =""; 
+				 		     }
+						 if(strGroupTravelFlag!=null  &&  (strGroupTravelFlag.trim().equals("Y")))
+							{
+	                        strGroupTravel ="A <B>Group/Guest</b> is scheduled to travel."; 
+	                        }
+							else
+						      { 
+	                             strGroupTravel = strSex+" "+" <b>"+strUserNm+ "</b> is scheduled to travel."; 
+							  }
+	
+	                 strSql	=	"SELECT TRAVEL_FROM,TRAVEL_TO FROM T_JOURNEY_DETAILS_INT WHERE TRAVEL_ID="+strRequistionId+"	";
+	
+					// Sql for getting return date added on 2/13/2009 
+					 strSqlSql="SELECT CONVERT(VARCHAR(11), TRAVEL_DATE, 113) FROM "+         		   
+							   " T_RET_JOURNEY_DETAILS_INT WHERE  (TRAVEL_ID = "+strRequistionId+") and  (RETURN_FROM <> '') AND (RETURN_TO <> '')" ;
+					}
+	
+	
+					
+	
+					strCurrency			 =   rs.getString("TA_CURRENCY");//TOTAL_AMOUNT 
+					strTotalAmount       =   rs.getString("TOTAL_AMOUNT"); //BILLING_SITE
+					strBillingSite       =   rs.getString("BILLING_SITE");
+					strreasonFortravel   =   rs.getString("REASON_FOR_TRAVEL");
+					String strbillingSiteid		 = rs.getString("BILLING_SITE_id");  
+					String strBillingClient    = rs.getString("BILLING_CLIENT");  
+					
+					String strSiteID	 = rs.getString("SITE_ID");  	
+					
+					if(strbillingSiteid.equals("-1")) { //case of out side smg 
+					strBillingSite=strBillingClient;  
+					}
+	
+					if(strbillingSiteid.equals("0")) { //case of self smg 
+					strBillingSite="self";  
+					}
+					String text =strCurrency+" "+strTotalAmount ;
+					stmt1= con.createStatement(); 
+					rs1 = stmt1.executeQuery(strSql);
+							if(rs1.next())
+							{
+									strTravelFrom	=	rs1.getString(1);
+									strTravelTo		=	rs1.getString(2);
+							}
+			
+					rs1.close();
+					stmt1.close();
+					
+	               //code to find return date from Query 
+				    
+					stmt1= con.createStatement(); 
+					rs2 = stmt1.executeQuery(strSqlSql);
+							if(rs2.next())
+							{
+									strTravelReturnDate	=	rs2.getString(1);
+									
+							}
+			
+					//rs2.close();
+					//stmt1.close();
+	               
+	
+	
+	
+					//find the orignal approver name in case of handover mail  for sending mail added by shiv sharma on 25 sept 2008 
+					
+						if(ReqTyp.equals("Domestic Travel")){
+							strSql="select dbo.USEREMAIL(ORIGINAL_APPROVER) from t_approvers where (TRAVEL_ID = "+strRequistionId+") and travel_type='d' and ORIGINAL_APPROVER<>'0'";
+						
+						}
+						else	{
+							strSql="select dbo.USEREMAIL(ORIGINAL_APPROVER) from t_approvers where (TRAVEL_ID = "+strRequistionId+") and travel_type='i' and ORIGINAL_APPROVER<>'0'";
+						}
+				
+				
+					 rs = dbConBean.executeQuery(strSql);
+						if(rs.next())
+						   	{
+					          strMailID_OrignalApprover	=	rs.getString(1);//Mail ID of CC mails 
+						 }rs.close();
+						
+						
+			
+						//sending mail on origination for intimation for SMR FRANCE,UK,Spain added on 02-Nov-2009 
+						if(ReqTyp.equals("Domestic Travel")){
+
+							sSqlStr	="SELECT isnull(dbo.Find_email(MAIL_TO),'') as MAIL_TO  FROM  MAIL_AT_STAGES	WHERE site_id="+strSiteID+" and (MAIL_STAGE = 'submit')";
+							
+							String strMailtoCCon ="";
+							rs = dbConBean.executeQuery(sSqlStr);
+							while(rs.next())
+							{
+								
+								strMailtoCCon =rs.getString("MAIL_TO"); 
+							}
+							
+							if(strMailtoCCon==null){
+								strMailtoCCon="";
+							}
+							
+							strMailID_OrignalApprover=strMailID_OrignalApprover+strMailtoCCon;
+						}
+						//rs.close();
+					    
+						
+						
+	
+						//@ Vijay 09/04/2007 change the mailSubject
+						strMailSubject="STARS Notification : "+ReqTyp+" Requisition  No :'"+strRequistionNumber.trim()+"'  Pending For Approval ";//Mail Subject
+	
+							try
+							{
+								String strSSOUrl = dbUtilityBean.sSSOUrlByMailid(strRequistionCreatorMail); //Added by vaibhav
+
+						strMailMsg.append("<html><style>.formhead{ font-family:Arial;font-size:11px;font-style: normal;font-weight:normal;color:#000000;text-decoration:none;letter-spacing:normal;word-spacing:normal;border:1px #333333 solid;background:#E2E4D6;}</style><body bgcolor=\"#d0d0d0\">" + "\n");
+					strMailMsg.append(" <table width=80% border=0 cellspacing=0 cellpadding=0 align=center><tr><td align=right><font face=Verdana, Arial, Helvetica, sans-serif size=2><b><font color=#FFFFFF>"+strRequistionCreatedDatewithoutPmAm+"</font><font color=#FFFFFF></font><font color=#000000><br></font></b><font color=#FFFFFF>(For Internal Circulation Only)</font></font></td></tr><tr><td bgcolor=#000000></td></tr><tr><td bgcolor=#FFFFFF align=center>"+ "\n");
+					strMailMsg.append("</td></tr><tr><td bgcolor=#000000></td></tr><tr><td bgcolor=#FFFFFF align=center><table width=100% border=0 cellspacing=0 cellpadding=10><tr><td align=center bgcolor=#aa1220><font face=Arial, Helvetica, sans-serif size=5 color=#FFFFFF>:: STARS MAIL NOTIFICATION ::</font></td></tr></table></td></tr><tr><td bgcolor=#000000> </td></tr><tr>"+ "\n");
+					strMailMsg.append("<td bgcolor=#B6DCDC></td></tr><tr><td bgcolor=#000000> </td></tr><tr><td bgcolor=#000000> </td></tr><tr><td bgcolor=#FFFFFF><table width=100% border=0 cellspacing=0 cellpadding=5>"+ "\n");
+					strMailMsg.append("  <tr><td align=center bgcolor=#aa1220><font face=Verdana, Arial, Helvetica, sans-serif size=2><b><font color=#FFFFFF><font size=2>"+ReqTyp+" Requisition</font> </font></b></font></td></tr><tr><td bgcolor=#878787><font face=Verdana, Arial, Helvetica, sans-serif size=2><b>Travel Requisition Number : "+strRequistionNumber.trim()+"</b> (Dated : "+strRequistionCreatedDate+")</font></td></tr><tr><td><p><font color=#FFFFFF></font><font size=2 face=Verdana, Arial, Helvetica, sans-serif>"+"\n"); 
+					strMailMsg.append("Dear "+strRequistionCreatorName+",</font></p><p><font size=2 face=Verdana, Arial, Helvetica, sans-serif>Requisition Number "+strRequistionNumber.trim()+" has been originated by "+strstrRequistionApproverName+" from "+strSiteName+" on "+strRequistionCreatedDate+" "+"</p>"+ "\n"); 
+					strMailMsg.append("<u><font size=2 face=Verdana, Arial, Helvetica, sans-serif color=blue>Requisition Details</u> :-</font><br><font size=2 face=Verdana, Arial, Helvetica, sans-serif >"+strGroupTravel+"   </font>\n<br>"); 
+	
+					strMailMsg.append("<u><font size=2 face=Verdana, Arial, Helvetica, sans-serif color=blue>Reason for Travel </u>:- </font><font size=2 face=Verdana, Arial, Helvetica, sans-serif >"+strreasonFortravel+"</font>\n<br><br>"); 
+					
+	
+	
+	
+					strMailMsg.append("<TABLE border=0 width=750  ><TR  height=10 ><TD    width=170><font size=2 face=Verdana, Arial, Helvetica, sans-serif color=blue >Departure Date </TD><TD    width=200><font size=2 face=Verdana, Arial, Helvetica, sans-serif >:- "+strTravelDate+"</TD><TD    width=170><font size=2 face=Verdana, Arial, Helvetica, sans-serif color=blue>Departure City </TD><TD><font size=2 face=Verdana, Arial, Helvetica, sans-serif > :- "+strTravelFrom+"</TD></TR><TR  height=10><TD ><font size=2 face=Verdana, Arial, Helvetica, sans-serif color=blue>Arrival City </TD><TD ><font size=2 face=Verdana, Arial, Helvetica, sans-serif>:-  "+strTravelTo+"</TD><TD ><font size=2 face=Verdana, Arial, Helvetica, sans-serif color=blue>Return Date </TD><TD><font size=2 face=Verdana, elvetica, sans-serif > :- "+strTravelReturnDate+" </TD></TR><TR  height=10><TD ><font size=2 face=Verdana, Arial, Helvetica, sans-serif color=blue>Amount Requested</TD><TD ><font size=2 face=Verdana, Arial, Helvetica, sans-serif >:- "+text+"</TD><TD><font size=2 face=Verdana, Arial, Helvetica, sans-serif color=blue>Billing Client </TD><TD><font size=2 face=Verdana, Arial, Helvetica, sans-serif >:- "+strBillingSite+" </TD></TR></TABLE>");
+					//Commented by vaibhav
+					//strMailMsg.append("</font><br><br><font size=2 face=Verdana, Arial, Helvetica, sans-serif><a href=\"http://stars.mindeservices.com\">Please click here to login to STARS </a> "+ "\n");  
+					strMailMsg.append("</font><br><br><font size=2 face=Verdana, Arial, Helvetica, sans-serif><a href='"+strSSOUrl+"'>Please click here to login to STARS </a> "+ "\n");  
+					strMailMsg.append("   </b></form></font><br><p><font size=2 face=Verdana, Arial, Helvetica, sans-serif>Best               Regards,</font><br><font size=2 face=Verdana, Arial, Helvetica, sans-serif>"+strstrRequistionApproverName.trim()+"<br></font></p></td></tr></table></td></tr><tr><td bgcolor=#878787 align=center> <font face=Verdana, Arial, Helvetica, sans-serif size=1><b>MAIL Reference Number: </b>"+strMailRefNumber+"/"+strCurrentYear+"</font></td></tr><tr><td bgcolor=#FFFFFF align=center><table width=100% border=0 cellspacing=0 cellpadding=5>"+ "\n"); 
+					strMailMsg.append("<tr><td align=center bgcolor=#aa1220><font size=2 face=Verdana, Arial, Helvetica, sans-serif><b><font size=1>STARS Administrator can be contacted at the following EMail Address : - </font></b><font size=1><font size=2 face=Verdana, Arial, Helvetica, sans-serif color=#000000>"+ "\n"); 
+					strMailMsg.append("<a href=mailto:administrator.stars@mind-infotech.com><font size=1 color=#ffffff>administrator.stars@mind-infotech.com</font></a></font></font></font></td>  "+ "\n");  
+					strMailMsg.append(" </tr><tr><td  align=center bgcolor=#878787 height=15> <b><font size=1 face=Verdana, Arial, Helvetica, sans-serif>Disclaimer</b> : This communication is System Generated. "+ "\n");  
+					strMailMsg.append("Please do not reply to this Email. <br>If you are not the correct receipent for this notification please forward this mail to STARS Administrator</font></td></tr></table></td></tr><tr><td bgcolor=#000000></td></tr>"+ "\n");    
+					strMailMsg.append("<tr><td align=center><font size=2 face=Verdana, Arial, Helvetica, sans-serif><font size=1 color=#000000>&copy;MIND. All Rights Reserved.</font></font></td>  </tr></table><p>&nbsp;</p></body></html>"+ "\n");
+	
+					//System.out.println("strMailMsg===="+strMailMsg);
+					
+							
+										try
+											{
+														//Procedure for inserting Mail Data
+														cstmt_mail=con.prepareCall("{?=call PROC_REQUISITION_MAIL_ADD(?,?,?,?,?,?,?,?,?,?,?,?)}");
+														cstmt_mail.registerOutParameter(1,java.sql.Types.INTEGER);
+														cstmt_mail.setString(2, strRequistionId);
+														cstmt_mail.setString(3, strRequistionNumber);
+														cstmt_mail.setString(4, strRequistionCreatorMail);//To
+														cstmt_mail.setString(5, strstrRequistionApproverEmail);//From
+														cstmt_mail.setString(6, strMailID_OrignalApprover);//CC  Mail Address is remove By  shar sharma on 03-Apr-08
+														cstmt_mail.setString(7, strMailSubject);
+														cstmt_mail.setString(8, strMailMsg.toString());
+														cstmt_mail.setInt(9, intTries);
+														cstmt_mail.setString(10, "NEW");
+														cstmt_mail.setString(11, Suser_id);
+														cstmt_mail.setString(12, "New");
+														cstmt_mail.setString(13, "User Submitting the Req");
+														cstmt_mail.execute();
+														cstmt_mail.close();
+											}
+											catch(Exception b)
+											{
+												System.out.println("Error in T_requisitionMailOnOriginating.jsp========="+b);		
+											}
+	
+									}
+									catch(Exception e)
+									{
+									System.out.println("Error in T_requisitionMailOnOriginating.jsp========="+ e);
+									}
+	
+									}
+				rs.close();
+				stmt.close();
+	
+	
+	
+	%>
+	

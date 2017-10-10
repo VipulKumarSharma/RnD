@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre_1.8.0_25"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-aop-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-aspects-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-beans-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-context-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-context-support-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-core-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-expression-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-instrument-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-instrument-tomcat-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-jdbc-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-jms-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-messaging-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-orm-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-oxm-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-test-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-tx-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-web-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-webmvc-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-webmvc-portlet-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/spring-websocket-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/aspectjweaver-1.7.3.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/jtds-1.3.1.jar"/>
+	<classpathentry kind="lib" path="D:/WorkStation/WorkSpaces/LUNA_WorkSpace/springApp/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,1190 @@
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import src.beans.AccomodationBean;
+import src.beans.AccomodationBeanList;
+import src.beans.CancellationBean;
+import src.beans.CancellationBeanList;
+import src.beans.InsuranceBean;
+import src.beans.InsuranceBeanList;
+import src.beans.TicketBean;
+import src.beans.TicketBeanList;
+import src.beans.UserBean;
+import src.beans.UserBeanList;
+import src.beans.VisaBean;
+import src.beans.VisaBeanList;
+import src.connection.DbConnectionBean;
+
+public class Group_PersonnelBookingServlet extends HttpServlet 
+{
+	private static final long serialVersionUID = 1L;
+	public static final String BOOKING_REQUEST_ID_KEY_VALUE = "lockBookingRequestIds";
+	static Logger logger = Logger.getLogger(Group_PersonnelBookingServlet.class.getName());
+	
+	BookingStatusServlet bookingStatusServlet = new BookingStatusServlet();
+
+    public Group_PersonnelBookingServlet() 
+    {   super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{}
+	
+	public String[] dbDateFormat(String[] str)
+	{
+		String[] newStr		= new String[str.length];
+		for (int i=0;i<str.length;i++)
+		{	if(str[i] != "")
+			{	String[] parts	= (str[i].trim()).split("/");
+				newStr[i] 		= parts[2]+"-"+parts[1]+"-"+parts[0];
+				//System.err.println("ConvertedDate="+newStr[i]);
+			}else 
+			{	newStr[i]			= "";
+				//System.err.println("ConvertedDate="+newStr[i]);
+			}
+		}
+		return newStr;
+	}
+	public String dbDateFormat(String str)
+	{	if(str != "")
+		{	String[] parts	= (str.trim()).split("/");
+			str 			= parts[2]+"-"+parts[1]+"-"+parts[0];
+			//System.err.println("ConvertedDate="+str);
+		}else 
+		{	str			= "";
+			//System.err.println("ConvertedDate="+str);
+		}
+		return str;
+	}
+	public String[] getCityCode(String[] str)
+	{	for (int i=0;i<str.length;i++)
+		{	if(str[i].indexOf("-") != -1)
+			{	String[] parts	= (str[i]).split("-");
+				str[i]			= parts[1].trim();	
+			}
+		}
+		return str;
+	}
+	public String[] getAirlineCode(String[] str)
+	{	for (int i=0;i<str.length;i++)
+		{	if(str[i].indexOf("-") != -1)
+			{	String[] parts	= (str[i]).split("-");
+				str[i]			= parts[0].trim();
+			}
+		}
+		return str;
+	}
+	
+	public String getSectorCode(String sector) throws SQLException {
+		
+		DbConnectionBean objCon	= new DbConnectionBean();
+		Connection con			= objCon.getConnection();
+		Statement stmt 			= con.createStatement();
+		ResultSet rs 			= stmt.executeQuery("select dbo.fn_getairportcode('"+sector.trim()+"','C') AS SECTOR_CODE");
+		if (rs.next()) {
+			sector = rs.getString("SECTOR_CODE")==null?"":rs.getString("SECTOR_CODE").trim();
+		}
+		rs.close();
+		stmt.close();
+		con.close();
+		
+		return sector;
+	}
+	
+	@SuppressWarnings("deprecation")
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		String action = request.getParameter("action")==null ? "":request.getParameter("action").trim(); 
+		if("".equalsIgnoreCase(action)) {
+			
+			logger.setLevel(Level.ALL);
+			logger.info("[Group_PersonnelBookingServlet] doPost block start ---->");
+			
+			HttpSession hs 			= request.getSession();
+			String tBookId			= (String) request.getParameter("hidTravelBookingId")==null? "0" :request.getParameter("hidTravelBookingId") ;
+			String travelerName		= "";
+			String travelType		= "";
+			String mobNo			= "";
+			String dob				= "";
+			String frxDetail		= "";
+			String bookedBy			= "";
+			String userId 			= "";
+			
+			String siteId			= "";
+			String siteName			= "";
+			String travelId			= "";
+			String travellerID		= "";
+			String grpTrFlag		= "";
+			String trvlStusId		= "";
+			String tReqNo			= "";
+			String remarks			= "";
+			String lstUpdDt			= "";
+			
+			String   grpUserIds		= "";
+			String   sector 		= "";
+			String[] tktBookId		= null;
+			String[] secFrom 		= null;
+			String[] secTo 			= null;
+			String[] classType 		= null;
+			String[] deptrDate 		= null;
+			String[] deptrTime 		= null;
+			String[] arrDate 		= null;
+			String[] arrTime 		= null;
+			String[] airlineType	= null;
+			String[] pnr 			= null;
+			String[] ticketNo 		= null;
+			String[] bscFare 		= null;
+			String[] taxes 			= null;
+			String[] ttlFare 		= null;
+			String[] tktStatus 		= null;
+			String[] tktRemarks 	= null;
+			String[] tktUsers		= null;
+			
+			String[] visaStatusId	= null;
+			String[] hidVisaBookId	= null;
+			String[] pprtNo 		= null;
+			String[] ppExpDate 		= null;
+			String[] visaType 		= null;
+			String[] country 		= null;
+			String[] docRecDate 	= null;
+			String[] visaIssuDate	= null;
+			String[] visaValFrom	= null;
+			String[] visaValTo 		= null;
+			String[] durOfStay 		= null;
+			String[] entryType 		= null;
+			String[] visaCharges	= null;
+			String[] visaRem 		= null;
+			
+			String[] insuStatus		= null; 
+			String[] hidInsuBookId	= null;
+			String[] insuPolNo 		= null;
+			String[] insuStDate 	= null;
+			String[] insuEndDate 	= null;
+			String[] insuType 		= null;
+			String[] nominee 		= null;
+			String[] relation 		= null;
+			String[] insuCharges 	= null;
+			String[] insuRemarks 	= null;
+			
+			String[] hidAccBookId	= null;
+			String[] stayType 		= null;
+			String[] location 		= null;
+			String[] chkInDate 		= null;
+			String[] chkOutDate 	= null;
+			String[] stayCharges 	= null;
+			String[] stayRemarks 	= null;
+			
+			String   cnclMailFlag   = "false";
+			String   chkbox			= "N";
+			String[] hidTrvlCnclId	= null;
+			String[] tktIssuDate 	= null;
+			String[] cnclSecFrom 	= null;
+			String[] cnclSecTo 		= null;
+			String[] tktCnclDate 	= null;
+			String[] pnrNo 			= null;
+			String[] tktNo 			= null;
+			String[] cnclCharges 	= null;
+			String[] cnclReason 	= null;
+			String[] refundRemarks 	= null;
+			String[] mailSentFlag   = null;
+			
+			String[] tktFlags		= null;
+			String[] userNames 		= null;
+			String[] userDobs	 	= null;
+			String[] userDesigs	 	= null;
+			String[] userMobNos	    = null;
+			String[] userForexes    = null;
+			String[] userIds		= null;
+			
+			String hTktJson 		=	"";
+			String hVisaJson 		=	"";
+			String hInsuJson 		=	"";
+			String hAccJson 		=	"";
+			String hCnclJson 		=	"";
+			String hUserDetailsJson	=	"";
+			
+			String ticketXML		=	"";
+			String visaXML			=	"";
+			String insuXML			=	"";
+			String accXML			=	"";
+			String cnclXML			=	"";
+			String userDetailsXML 	=   "";
+			
+			Boolean editMode		= Boolean.parseBoolean((String) (request.getParameter("hidEditMode") == null? false:request.getParameter("hidEditMode")));
+			Boolean tktDataFlag		= Boolean.parseBoolean((String) (request.getParameter("hidTicketDataFlag") == null? false:request.getParameter("hidTicketDataFlag")));
+			Boolean visaDataFlag	= Boolean.parseBoolean((String) (request.getParameter("hidVisaDataFlag") == null? false:request.getParameter("hidVisaDataFlag")));
+			Boolean insuDataFlag	= Boolean.parseBoolean((String) (request.getParameter("hidInsuDataFlag") == null? false:request.getParameter("hidInsuDataFlag")));
+			Boolean accDataFlag		= Boolean.parseBoolean((String) (request.getParameter("hidAccDataFlag") == null? false:request.getParameter("hidAccDataFlag")));
+			Boolean cnclDataFlag	= Boolean.parseBoolean((String) (request.getParameter("hidCnclDataFlag") == null? false:request.getParameter("hidCnclDataFlag")));
+			Boolean closeFlag		= Boolean.parseBoolean((String) (request.getParameter("hidCloseFlag") == null? false:request.getParameter("hidCloseFlag")));
+			
+			//System.out.println("editMode="+editMode+"  tktDataFlag="+tktDataFlag+"  visaDataFlag="+visaDataFlag+"  insuDataFlag="+insuDataFlag+"  accDataFlag="+accDataFlag+"  cnclDataFlag="+cnclDataFlag);
+			
+			travelType	=	(String) request.getParameter("travelType")==null? "" 		:request.getParameter("travelType") ;
+			grpTrFlag	=	(String) request.getParameter("hidgrpTravelFlag")==null? "N":request.getParameter("hidgrpTravelFlag") ;
+			
+			try 
+			{	logger.info("[Group_PersonnelBookingServlet] GRP USERS JSON building block start ---->");
+				if (editMode && grpTrFlag.equalsIgnoreCase("Y")) {
+					
+					tktFlags		= (String[]) request.getParameterValues("tktFlags");
+					userNames 		= (String[]) request.getParameterValues("userNames");
+					userDobs	 	= (String[]) dbDateFormat(request.getParameterValues("userDobs"));
+					userDesigs	 	= (String[]) request.getParameterValues("userDesigs");
+					userMobNos	    = (String[]) request.getParameterValues("userMobNos");
+					userForexes		= (String[]) request.getParameterValues("userForexes");
+					userIds			= (String[]) request.getParameterValues("userIds");
+					
+					if(!tktDataFlag && editMode) {
+						Arrays.fill(tktFlags, 0, userNames.length, "N");
+					}
+					
+					hUserDetailsJson = "[";
+					
+					for(int i=0; i< userNames.length; i++) {
+						
+						if(i == (userNames.length)-1) {
+							hUserDetailsJson = hUserDetailsJson + "{'tktFlag' : '"+tktFlags[i]+"','grpUserName' : '"+userNames[i]+"','grpUserDob' : '"+userDobs[i]+"', 'grpUserDesigs' :'"+userDesigs[i]+"', 'grpUserMobNos' : '"+userMobNos[i]+"', 'grpUserForexes' : '"+userForexes[i]+"','grpUserId' : '"+userIds[i]+"'}";
+						} else {
+							hUserDetailsJson = hUserDetailsJson + "{'tktFlag' : '"+tktFlags[i]+"','grpUserName' : '"+userNames[i]+"','grpUserDob' : '"+userDobs[i]+"', 'grpUserDesigs' :'"+userDesigs[i]+"', 'grpUserMobNos' : '"+userMobNos[i]+"', 'grpUserForexes' : '"+userForexes[i]+"','grpUserId' : '"+userIds[i]+"'},";
+						}
+					}
+					hUserDetailsJson = hUserDetailsJson + "]";
+				} else {
+					hUserDetailsJson = "";
+					userDetailsXML	 = "";
+				}
+				//System.out.println("hUserDetailsJson= "+hUserDetailsJson);
+				logger.info("[Group_PersonnelBookingServlet] GRP USERS JSON building block end.");
+				
+			} catch (Exception e) {
+				logger.info("[Group_PersonnelBookingServlet] GRP USERS JSON building failed !");
+				e.printStackTrace();
+			}
+			
+			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+			Date[] arr 			= null;
+			Date min 			= null;
+			Date date 			= new Date();
+			String currentDate	= new SimpleDateFormat("yyyy-MM-dd").format(date);
+			String travelDate	= "";
+			
+			try
+			{
+				logger.info("[Group_PersonnelBookingServlet] TKT JSON building block start ---->");
+				if (tktDataFlag)
+				{	
+					tktBookId		= request.getParameterValues("hidTktBookId");
+					secFrom 		= (String[]) (request.getParameterValues("secFrom"));
+					secTo 			= (String[]) (request.getParameterValues("secTo"));
+					classType 		= request.getParameterValues("hidclassType");
+					deptrDate 		= (String[]) dbDateFormat(request.getParameterValues("deptrDate"));
+					deptrTime 		= request.getParameterValues("deptrTime");
+					arrDate 		= (String[]) dbDateFormat(request.getParameterValues("arrDate"));
+					arrTime 		= request.getParameterValues("arrTime");
+					airlineType		= (String[]) getAirlineCode(request.getParameterValues("airlineType"));
+					pnr 			= request.getParameterValues("pnr");
+					ticketNo 		= request.getParameterValues("ticketNo");
+					/*bscFare 		= request.getParameterValues("bscFare");
+					taxes 			= request.getParameterValues("taxes");*/
+					ttlFare 		= request.getParameterValues("ttlFare");
+					tktStatus 		= request.getParameterValues("hidtktStatus");
+					tktRemarks 		= request.getParameterValues("tktRemarks");
+					tktUsers		= request.getParameterValues("tktUsers");
+				
+					hTktJson 		= "[";
+					//System.err.println("secFrom.length="+secFrom.length);
+					for(int i=0;i< secFrom.length;i++)
+					{	if(i == (secFrom.length)-1)
+						{	hTktJson = hTktJson + "{'tktBookId' : '"+tktBookId[i]+"','secFrom' : '"+secFrom[i]+"', 'secTo' :'"+secTo[i]+"', 'classType' : '"+classType[i]+"', 'deptrDate' : '"+deptrDate[i]+"', 'deptrTime' :'"+deptrTime[i]+"', 'arrDate' :'"+arrDate[i]+"', 'arrTime' : '"+arrTime[i]+"', 'airlineType' :'"+airlineType[i]+"', 'pnr' : '"+pnr[i]+"', 'ticketNo' : '"+ticketNo[i]+"', 'bscFare' :'', 'taxes' : '', 'ttlFare' : '"+ttlFare[i]+"', 'tktStatus' :'"+tktStatus[i]+"', 'tktRemarks' :'"+tktRemarks[i]+"', 'grpUserIds' :'"+tktUsers[i]+"'}";	
+						}
+						else
+						{	hTktJson = hTktJson + "{'tktBookId' : '"+tktBookId[i]+"','secFrom' : '"+secFrom[i]+"', 'secTo' :'"+secTo[i]+"', 'classType' : '"+classType[i]+"', 'deptrDate' : '"+deptrDate[i]+"', 'deptrTime' :'"+deptrTime[i]+"', 'arrDate' :'"+arrDate[i]+"', 'arrTime' : '"+arrTime[i]+"', 'airlineType' :'"+airlineType[i]+"', 'pnr' : '"+pnr[i]+"', 'ticketNo' : '"+ticketNo[i]+"', 'bscFare' :'', 'taxes' : '', 'ttlFare' : '"+ttlFare[i]+"', 'tktStatus' :'"+tktStatus[i]+"', 'tktRemarks' :'"+tktRemarks[i]+"', 'grpUserIds' :'"+tktUsers[i]+"'},";
+						}
+					}
+					hTktJson = hTktJson + "]";
+					
+					sector 	= getSectorCode(secFrom[0]);
+					for(int i=0;i<secTo.length;i++)
+					{	sector	=	sector+"-"+getSectorCode(secTo[i]); 
+					}
+					//System.err.println("sector= "+sector);
+					//System.out.println("\nhTktJson= "+hTktJson);
+					
+					try 
+					{	arr = new Date[deptrDate.length];
+						if (deptrDate.length > 0) 
+			               {     for (int i = 0; i < deptrDate.length; i++) 
+			                     { 	if((deptrDate[i]).equals(""))
+			                     	{	arr[i] = new Date();
+			                     	}
+			                     	else	
+			                     		arr[i] = sdf.parse(deptrDate[i]);
+			                     }
+			               		 min	= arr[0];
+			                     for (int i = 0; i < (arr.length); i++) 
+			                     {  
+			                    	if (min.compareTo(arr[i]) > 0) 
+			                 		{      min = arr[i];
+			                 		} 
+			                     }
+			                     travelDate = (min.getYear()+1900) + "-"+ (min.getMonth()+1) + "-" + min.getDate();
+			               }else 
+			               {     travelDate = currentDate.trim();
+			               }
+			        }catch (ParseException ex) 
+			        {   //System.out.println("Min. Deptr Date NOT Found");
+			        	ex.printStackTrace();
+			        }
+				}if ((tBookId.equals("0") || editMode) && !tktDataFlag)
+				{	hTktJson = "[{'tktBookId' : '','secFrom' : '', 'secTo' :'', 'classType' : '', 'deptrDate' : '', 'deptrTime' :'', 'arrDate' :'', 'arrTime' : '', 'airlineType' :'', 'pnr' : '', 'ticketNo' : '', 'bscFare' :'', 'taxes' : '', 'ttlFare' : '', 'tktStatus' :'', 'tktRemarks' :'', 'grpUserIds' :''}]";
+					travelDate = currentDate.trim();
+					//System.out.println("\nhTktJson= "+hTktJson);
+				}
+				logger.info("[Group_PersonnelBookingServlet] TKT JSON building block end.");
+				
+			}catch(Exception e)
+			{	logger.info("[Group_PersonnelBookingServlet] TKT JSON building failed !");
+				e.printStackTrace();
+			}
+			
+			String[] parts = travelDate.split("-");
+	        if(Integer.parseInt(parts[1]) < 10)
+	        {   parts[1] = "0"+parts[1];
+	        }
+	        if(Integer.parseInt(parts[2]) < 10)
+	        {   parts[2] = "0"+parts[2];
+	        }
+	        travelDate = parts[0]+"-"+parts[1]+"-"+parts[2];
+	        //System.out.println("Min. DEPTR. Date::::"+travelDate);
+	       
+	        try
+	        {	
+	        	logger.info("[Group_PersonnelBookingServlet] VISA JSON building block start ---->");
+	        	if(travelType.equalsIgnoreCase("I")) 
+	        	{	if (visaDataFlag)
+					{	
+						hidVisaBookId	= request.getParameterValues("hidVisaBookId");
+						visaStatusId	= request.getParameterValues("visaStatus");
+						pprtNo 			= request.getParameterValues("pprtNo");
+						ppExpDate 		= (String[]) dbDateFormat(request.getParameterValues("ppExpDate"));
+						visaType 		= request.getParameterValues("hidvisaType");
+						country 		= request.getParameterValues("country");
+						/*docRecDate 		= (String[]) dbDateFormat(request.getParameterValues("docRecDate"));
+						visaIssuDate	= (String[]) dbDateFormat(request.getParameterValues("visaIssuDate"));*/
+						visaValFrom		= (String[]) dbDateFormat(request.getParameterValues("visaValFrom"));
+						visaValTo 		= (String[]) dbDateFormat(request.getParameterValues("visaValTo"));
+						durOfStay 		= request.getParameterValues("durOfStay");
+						entryType 		= request.getParameterValues("hidentryType");
+						visaCharges		= request.getParameterValues("visaCharges");
+						visaRem 		= request.getParameterValues("visaRem");
+						
+						hVisaJson 		= "[";
+						//System.err.println("pprtNo.length="+pprtNo.length);
+						for(int i=0;i< pprtNo.length;i++)
+						{	if(i == (pprtNo.length)-1)
+							{	hVisaJson = hVisaJson + "{'visaBookId' : '"+hidVisaBookId[i]+"','visaStatusId' : '"+visaStatusId[i]+"','pprtNo' : '"+pprtNo[i]+"', 'ppExpDate' :'"+ppExpDate[i]+"', 'visaType' : '"+visaType[i]+"', 'country' : '"+country[i]+"', 'docRecDate' :'', 'visaIssuDate' :'', 'visaValFrom' : '"+visaValFrom[i]+"', 'visaValTo' :'"+visaValTo[i]+"', 'durOfStay' : '"+durOfStay[i]+"', 'entryType' : '"+entryType[i]+"', 'visaCharges' :'"+visaCharges[i]+"', 'visaRem' : '"+visaRem[i]+"'}";	
+							}
+							else
+							{	hVisaJson = hVisaJson + "{'visaBookId' : '"+hidVisaBookId[i]+"','visaStatusId' : '"+visaStatusId[i]+"','pprtNo' : '"+pprtNo[i]+"', 'ppExpDate' :'"+ppExpDate[i]+"', 'visaType' : '"+visaType[i]+"', 'country' : '"+country[i]+"', 'docRecDate' :'', 'visaIssuDate' :'', 'visaValFrom' : '"+visaValFrom[i]+"', 'visaValTo' :'"+visaValTo[i]+"', 'durOfStay' : '"+durOfStay[i]+"', 'entryType' : '"+entryType[i]+"', 'visaCharges' :'"+visaCharges[i]+"', 'visaRem' : '"+visaRem[i]+"'},";
+							}
+						}
+						hVisaJson = hVisaJson + "]";
+						
+					} if ((tBookId.equals("0") || editMode) && !visaDataFlag) {
+						hVisaJson = "[{'visaBookId' : '','visaStatusId' : '','pprtNo' : '', 'ppExpDate' :'', 'visaType' : '', 'country' : '', 'docRecDate' :'', 'visaIssuDate' :'', 'visaValFrom' : '', 'visaValTo' :'', 'durOfStay' : '', 'entryType' : '', 'visaCharges' :'', 'visaRem' : ''}]";
+						
+					}
+	        	} else {
+	        		hVisaJson = "[{'visaBookId' : '','visaStatusId' : '','pprtNo' : '', 'ppExpDate' :'', 'visaType' : '', 'country' : '', 'docRecDate' :'', 'visaIssuDate' :'', 'visaValFrom' : '', 'visaValTo' :'', 'durOfStay' : '', 'entryType' : '', 'visaCharges' :'', 'visaRem' : ''}]";
+	        	}
+	        	//System.out.println("hVisaJson= "+hVisaJson);
+	        	logger.info("[Group_PersonnelBookingServlet] VISA JSON building block end.");
+	        	
+			}catch(Exception e)
+			{	logger.info("[Group_PersonnelBookingServlet] VISA JSON building failed !");
+				e.printStackTrace();
+			}
+	        
+			try
+		    {	
+				logger.info("[Group_PersonnelBookingServlet] INSU JSON building block start ---->");
+				if(travelType.equalsIgnoreCase("I")) 
+	        	{	if (insuDataFlag)
+					{	
+						hidInsuBookId	= request.getParameterValues("hidInsuBookId");
+						insuStatus		= request.getParameterValues("hidInsuStatus"); 
+						insuPolNo 		= request.getParameterValues("insuPolNo");
+						insuStDate 		= (String[]) dbDateFormat(request.getParameterValues("insuStDate"));
+						insuEndDate 	= (String[]) dbDateFormat(request.getParameterValues("insuEndDate"));
+						insuType 		= request.getParameterValues("hidinsuType");
+						nominee 		= request.getParameterValues("nominee");
+						relation 		= request.getParameterValues("relation");
+						insuCharges 	= request.getParameterValues("insuCharges");
+						insuRemarks 	= request.getParameterValues("insuRemarks");
+						
+						hInsuJson 		= "[";
+						//System.err.println("insuPolNo.length="+insuPolNo.length);
+						for(int i=0;i< insuPolNo.length;i++) {	
+							if(i == (insuPolNo.length)-1)
+							{	hInsuJson = hInsuJson + "{'insuBookId' : '"+hidInsuBookId[i]+"','insuStatus' : '"+insuStatus[i]+"','insuPolNo' : '"+insuPolNo[i]+"', 'insuStDate' :'"+insuStDate[i]+"', 'insuEndDate' : '"+insuEndDate[i]+"', 'insuType' : '"+insuType[i]+"', 'nominee' :'"+nominee[i]+"', 'relation' :'"+relation[i]+"', 'insuCharges' : '"+insuCharges[i]+"', 'insuRemarks' :'"+insuRemarks[i]+"'}";	
+							}
+							else
+							{	hInsuJson = hInsuJson + "{'insuBookId' : '"+hidInsuBookId[i]+"','insuStatus' : '"+insuStatus[i]+"','insuPolNo' : '"+insuPolNo[i]+"', 'insuStDate' :'"+insuStDate[i]+"', 'insuEndDate' : '"+insuEndDate[i]+"', 'insuType' : '"+insuType[i]+"', 'nominee' :'"+nominee[i]+"', 'relation' :'"+relation[i]+"', 'insuCharges' : '"+insuCharges[i]+"', 'insuRemarks' :'"+insuRemarks[i]+"'},";
+							}
+						}
+						hInsuJson = hInsuJson + "]";
+						
+					} if ((tBookId.equals("0") || editMode) && !insuDataFlag) {
+						hInsuJson = "[{'insuBookId' : '', 'insuStatus' :'', 'insuPolNo' : '', 'insuStDate' :'', 'insuEndDate' : '', 'insuType' : '', 'nominee' :'', 'relation' :'', 'insuCharges' : '', 'insuRemarks' :''}]";
+					}
+	        	} else {
+	        		hInsuJson = "[{'insuBookId' : '', 'insuStatus' :'', 'insuPolNo' : '', 'insuStDate' :'', 'insuEndDate' : '', 'insuType' : '', 'nominee' :'', 'relation' :'', 'insuCharges' : '', 'insuRemarks' :''}]";
+	        	}
+				//System.out.println("hInsuJson= "+hInsuJson);
+				logger.info("[Group_PersonnelBookingServlet] INSU JSON building block end.");
+				
+			}catch(Exception e)
+			{	logger.info("[Group_PersonnelBookingServlet] INSU JSON building failed !");
+				e.printStackTrace();
+			}
+			
+			try
+			{	
+				logger.info("[Group_PersonnelBookingServlet] ACC JSON building block start ---->");
+				if (accDataFlag)
+				{	
+					hidAccBookId	= request.getParameterValues("hidAccBookId");
+					stayType 		= request.getParameterValues("hidstayType");
+					location 		= request.getParameterValues("location");
+					chkInDate 		= (String[]) dbDateFormat(request.getParameterValues("chkInDate"));
+					chkOutDate 		= (String[]) dbDateFormat(request.getParameterValues("chkOutDate"));
+					stayCharges 	= request.getParameterValues("stayCharges");
+					stayRemarks 	= request.getParameterValues("stayRemarks");
+					
+					for(int i=0;i< stayCharges.length;i++) {
+						if (stayCharges[i].equals("")) {
+							stayCharges[i]="-1";
+						}
+					}
+					
+					hAccJson 		= "[";
+					//System.err.println("stayCharges.length="+stayCharges.length);
+					for(int i=0;i< stayCharges.length;i++)
+					{	if(i == (stayCharges.length)-1)
+						{	hAccJson = hAccJson + "{'accBookId' : '"+hidAccBookId[i]+"','stayType' : '"+stayType[i]+"', 'location' :'"+location[i]+"', 'chkInDate' : '"+chkInDate[i]+"', 'chkOutDate' : '"+chkOutDate[i]+"', 'stayCharges' :'"+stayCharges[i]+"', 'stayRemarks' :'"+stayRemarks[i]+"'}";	
+						}
+						else
+						{	hAccJson = hAccJson + "{'accBookId' : '"+hidAccBookId[i]+"','stayType' : '"+stayType[i]+"', 'location' :'"+location[i]+"', 'chkInDate' : '"+chkInDate[i]+"', 'chkOutDate' : '"+chkOutDate[i]+"', 'stayCharges' :'"+stayCharges[i]+"', 'stayRemarks' :'"+stayRemarks[i]+"'},";
+						}
+					}
+					hAccJson = hAccJson + "]";
+				
+				} if ((tBookId.equals("0") || editMode) && !accDataFlag) {	
+					hAccJson = "[{'accBookId' : '','stayType' : '', 'location' :'', 'chkInDate' : '', 'chkOutDate' : '', 'stayCharges' :'', 'stayRemarks' :''}]";
+				}
+				//System.out.println("hAccJson= "+hAccJson);
+				logger.info("[Group_PersonnelBookingServlet] ACC JSON building block end.");
+				
+			}catch(Exception e)
+			{	logger.info("[Group_PersonnelBookingServlet] ACC JSON building failed !");
+				e.printStackTrace();
+			}
+			
+			int icount 		= Integer.parseInt(request.getParameter("flagIndex"));
+			//System.out.println("icount-->"+icount);
+			for (int i =0 ; i < icount ; i++) {
+				String index = new Integer(i).toString();
+				chkbox = request.getParameter("chkbox"+index) == null ? "N" :request.getParameter("chkbox"+index);
+				//System.out.println("chkbox="+chkbox);
+			}
+			
+			try
+			{	
+				logger.info("[Group_PersonnelBookingServlet] CNCL TKT JSON building block start ---->");
+				tktBookId		= request.getParameterValues("hidTktBookId");
+				secFrom 		= (String[]) (request.getParameterValues("secFrom"));
+				secTo 			= (String[]) (request.getParameterValues("secTo"));
+				pnr 			= request.getParameterValues("pnr");
+				ticketNo 		= request.getParameterValues("ticketNo");
+				tktUsers		= request.getParameterValues("tktUsers");
+				
+				if (!tBookId.equals("0") && cnclDataFlag && tktDataFlag)
+				{	
+					hidTrvlCnclId	= request.getParameterValues("hidTrvlCnclId");
+					tktIssuDate 	= (String[]) dbDateFormat(request.getParameterValues("tktIssuDate"));
+					cnclSecFrom 	= (String[]) (request.getParameterValues("cnclSecFrom"));
+					cnclSecTo 		= (String[]) (request.getParameterValues("cnclSecTo"));
+					tktCnclDate 	= (String[]) dbDateFormat(request.getParameterValues("tktCnclDate"));
+					pnrNo 			= request.getParameterValues("pnrNo");
+					tktNo 			= request.getParameterValues("tktNo");
+					cnclCharges 	= request.getParameterValues("cnclCharges");
+					cnclReason 		= request.getParameterValues("cnclReason");
+					refundRemarks 	= request.getParameterValues("refundRemarks");
+					mailSentFlag    = request.getParameterValues("hidmailSentFlag");
+									
+					for(int i=0; i<mailSentFlag.length;i++) {
+						if(mailSentFlag[i].equalsIgnoreCase("Y")) {
+							cnclMailFlag = "true";
+							break;
+						}
+					}
+					
+					hCnclJson 		= "[";
+					//System.err.println("tktBookId.length="+tktBookId.length);
+					
+					for(int i=0;i<tktBookId.length; i++) {
+						
+						String index = new Integer(i).toString();
+						chkbox = request.getParameter("chkbox"+index) == null ? "N" :request.getParameter("chkbox"+index);
+						
+						if(tktBookId[i] != null && !"0".equals(tktBookId[i])) {
+							if(i == (tktBookId.length)-1) {	
+								hCnclJson = hCnclJson + "{'travelCnclId' : '"+hidTrvlCnclId[i]+"', 'chkbox' : '"+chkbox+"', 'tktIssuDate' : '"+tktIssuDate[i]+"', 'cnclSecFrom' :'"+secFrom[i]+"', 'cnclSecTo' : '"+secTo[i]+"', 'tktCnclDate' : '"+tktCnclDate[i]+"', 'pnrNo' :'"+pnr[i]+"', 'tktNo' :'"+ticketNo[i]+"', 'cnclCharges' : '"+cnclCharges[i]+"', 'cnclReason' :'"+cnclReason[i]+"', 'refundRemarks' : '"+refundRemarks[i]+"', 'mailSentFlag' :'"+mailSentFlag[i]+"', 'grpUserIds' :'"+tktUsers[i]+"'}";	
+							} else {	
+								hCnclJson = hCnclJson + "{'travelCnclId' : '"+hidTrvlCnclId[i]+"', 'chkbox' : '"+chkbox+"', 'tktIssuDate' : '"+tktIssuDate[i]+"', 'cnclSecFrom' :'"+secFrom[i]+"', 'cnclSecTo' : '"+secTo[i]+"', 'tktCnclDate' : '"+tktCnclDate[i]+"', 'pnrNo' :'"+pnr[i]+"', 'tktNo' :'"+ticketNo[i]+"', 'cnclCharges' : '"+cnclCharges[i]+"', 'cnclReason' :'"+cnclReason[i]+"', 'refundRemarks' : '"+refundRemarks[i]+"', 'mailSentFlag' :'"+mailSentFlag[i]+"', 'grpUserIds' :'"+tktUsers[i]+"'},";
+							}
+						} else {
+							if(i == (tktBookId.length)-1) {	
+								hCnclJson = hCnclJson + "{'travelCnclId' : '0', 'chkbox' : 'N', 'tktIssuDate' : '"+currentDate.trim()+"', 'cnclSecFrom' :'"+secFrom[i]+"', 'cnclSecTo' : '"+secTo[i]+"', 'tktCnclDate' : '', 'pnrNo' :'"+pnr[i]+"', 'tktNo' :'"+ticketNo[i]+"', 'cnclCharges' : '', 'cnclReason' :'', 'refundRemarks' : '', 'mailSentFlag' :'N', 'grpUserIds' :'"+tktUsers[i]+"'}";	
+							} else {	
+								hCnclJson = hCnclJson + "{'travelCnclId' : '0', 'chkbox' : 'N', 'tktIssuDate' : '"+currentDate.trim()+"', 'cnclSecFrom' :'"+secFrom[i]+"', 'cnclSecTo' : '"+secTo[i]+"', 'tktCnclDate' : '', 'pnrNo' :'"+pnr[i]+"', 'tktNo' :'"+ticketNo[i]+"', 'cnclCharges' : '', 'cnclReason' :'', 'refundRemarks' : '', 'mailSentFlag' :'N', 'grpUserIds' :'"+tktUsers[i]+"'},";
+							}
+						}
+					}
+					hCnclJson = hCnclJson + "]";
+					
+				}if ((tBookId.equals("0") && tktDataFlag) || (editMode && !cnclDataFlag && tktDataFlag)) {	
+					
+					hCnclJson 		= "[";
+					for(int i=0;i< secFrom.length;i++)
+					{	if(i == (secFrom.length)-1) {
+							hCnclJson = hCnclJson + "{'travelCnclId' : '0', 'chkbox' : 'N', 'tktIssuDate' : '"+currentDate.trim()+"', 'cnclSecFrom' :'"+secFrom[i]+"', 'cnclSecTo' : '"+secTo[i]+"', 'tktCnclDate' : '', 'pnrNo' :'"+pnr[i]+"', 'tktNo' :'"+ticketNo[i]+"', 'cnclCharges' : '', 'cnclReason' :'', 'refundRemarks' : '', 'mailSentFlag' :'N', 'grpUserIds' :'"+tktUsers[i]+"'}";	
+						} else {	
+							hCnclJson = hCnclJson + "{'travelCnclId' : '0', 'chkbox' : 'N', 'tktIssuDate' : '"+currentDate.trim()+"', 'cnclSecFrom' :'"+secFrom[i]+"', 'cnclSecTo' : '"+secTo[i]+"', 'tktCnclDate' : '', 'pnrNo' :'"+pnr[i]+"', 'tktNo' :'"+ticketNo[i]+"', 'cnclCharges' : '', 'cnclReason' :'', 'refundRemarks' : '', 'mailSentFlag' :'N', 'grpUserIds' :'"+tktUsers[i]+"'},";
+						}
+					}
+					hCnclJson = hCnclJson + "]";
+					
+				}if ((tBookId.equals("0") || editMode) && !tktDataFlag) {
+					hCnclJson = "[{'travelCnclId' : '', 'chkbox' : '', 'tktIssuDate' : '', 'cnclSecFrom' :'', 'cnclSecTo' : '', 'tktCnclDate' : '', 'pnrNo' :'', 'tktNo' :'', 'cnclCharges' : '', 'cnclReason' :'', 'refundRemarks' : '', 'mailSentFlag' :'', 'grpUserIds' :''}]";
+				}
+				//System.out.println("hCnclJson= "+hCnclJson);
+				logger.info("[Group_PersonnelBookingServlet] CNCL TKT JSON building block end.");
+				
+			}catch(Exception e)
+			{	logger.info("[Group_PersonnelBookingServlet] CNCL TKT JSON building failed !");
+				e.printStackTrace();
+			}
+			
+			if(editMode && grpTrFlag.equalsIgnoreCase("Y") && !hUserDetailsJson.equals("[]") && !hUserDetailsJson.equals("")) {
+				
+				logger.info("[Group_PersonnelBookingServlet] GRP USER XML building block start ---->");
+				UserBean userBean = null;
+				UserBeanList<UserBean> usersList = new UserBeanList<UserBean>();
+				
+				usersList.setUserBean(new ArrayList<UserBean>());
+				JSONArray jsonArr;
+				try {
+					jsonArr = new JSONArray(hUserDetailsJson);
+					
+					for(int i=0;i<jsonArr.length();i++) {
+						
+						JSONObject jsonObject	= jsonArr.getJSONObject(i);
+						userBean				= new UserBean();
+						
+						userBean.setTktFlag(jsonObject.getString("tktFlag"));
+						userBean.setName(jsonObject.getString("grpUserName"));
+						userBean.setDob(jsonObject.getString("grpUserDob"));
+						userBean.setDesig(jsonObject.getString("grpUserDesigs"));
+						userBean.setMobileNo(jsonObject.getString("grpUserMobNos"));
+						userBean.setForex(jsonObject.getString("grpUserForexes"));
+						userBean.setGrpUserId(jsonObject.getString("grpUserId"));
+						usersList.getUserBean().add(userBean);
+					}
+					
+					JAXBContext jaxbContext = JAXBContext.newInstance(UserBeanList.class);
+			        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			        StringWriter journeyWriter = new StringWriter();
+			        jaxbMarshaller.marshal(usersList, journeyWriter);
+			        userDetailsXML=journeyWriter.toString();
+			        userDetailsXML=userDetailsXML.substring(56);
+	
+					//System.out.println(userDetailsXML);	
+				} catch (JSONException e) {
+					logger.info("[Group_PersonnelBookingServlet] GRP USER XML building failed !");
+					e.printStackTrace();
+				} catch (JAXBException e) {
+					logger.info("[Group_PersonnelBookingServlet] GRP USER XML building failed !");
+					e.printStackTrace();
+				} 
+				logger.info("[Group_PersonnelBookingServlet] GRP USER XML building block end.");
+				
+			} else {
+				userDetailsXML = "";
+				//System.out.println("userDetailsXML\n"+userDetailsXML);	
+			}
+			
+			if(!hTktJson.equals("[]"))
+			{	
+				logger.info("[Group_PersonnelBookingServlet] TKT XML building block start ---->");
+				TicketBean ticketBean=null;
+				TicketBeanList<TicketBean> ticketList=new TicketBeanList<TicketBean>();
+				
+				ticketList.setTicketBean(new ArrayList <TicketBean>());
+				JSONArray jsonArr;
+				try 
+				{	jsonArr = new JSONArray(hTktJson);
+					for(int i=0;i<jsonArr.length();i++)
+					{
+						JSONObject jsonObject=jsonArr.getJSONObject(i);
+						ticketBean=new TicketBean();
+						
+						ticketBean.setTktBookId(jsonObject.getString("tktBookId"));
+						ticketBean.setAirline(jsonObject.getString("airlineType"));
+						ticketBean.setArrDate(jsonObject.getString("arrDate"));
+						ticketBean.setArrTime(jsonObject.getString("arrTime"));
+						ticketBean.setBasicFare(jsonObject.getString("bscFare"));
+						ticketBean.setCls(jsonObject.getString("classType"));
+						ticketBean.setDeptrDate(jsonObject.getString("deptrDate"));
+						ticketBean.setDeptrTime(jsonObject.getString("deptrTime"));
+						ticketBean.seteTktNo(jsonObject.getString("ticketNo"));
+						ticketBean.setPnr(jsonObject.getString("pnr"));
+						ticketBean.setSecFrom1(jsonObject.getString("secFrom"));
+						ticketBean.setSecTo1(jsonObject.getString("secTo"));
+						ticketBean.setTaxes(jsonObject.getString("taxes"));
+						ticketBean.setTktRemarks(jsonObject.getString("tktRemarks"));
+						ticketBean.setTktStatus(jsonObject.getString("tktStatus"));
+						ticketBean.setTotFare(jsonObject.getString("ttlFare"));
+						ticketBean.setGrpUserId(jsonObject.getString("grpUserIds"));
+						ticketList.getTicketBean().add(ticketBean);
+					}
+					
+					JAXBContext jaxbContext = JAXBContext.newInstance(TicketBeanList.class);
+			        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			        StringWriter journeyWriter = new StringWriter();
+			        jaxbMarshaller.marshal(ticketList, journeyWriter);
+			        ticketXML=journeyWriter.toString();
+			        ticketXML=ticketXML.substring(56);
+	
+					//System.out.println(ticketXML);	
+				} catch (JSONException e) {
+					logger.info("[Group_PersonnelBookingServlet] TKT XML building block failed !");
+					e.printStackTrace();
+				} catch (JAXBException e) {
+					logger.info("[Group_PersonnelBookingServlet] TKT XML building block failed !");
+					e.printStackTrace();
+				}
+				logger.info("[Group_PersonnelBookingServlet] TKT XML building block end.");
+			}
+			if(!hVisaJson.equals("[]"))
+			{
+				logger.info("[Group_PersonnelBookingServlet] VISA XML building block start ---->");
+				VisaBean visaBean=null;
+				VisaBeanList<VisaBean> visaList=new VisaBeanList<VisaBean>();
+				
+				visaList.setVisaBean(new ArrayList <VisaBean>());
+				JSONArray jsonArr;
+				try 
+				{	jsonArr = new JSONArray(hVisaJson);
+					for(int i=0;i<jsonArr.length();i++)
+					{
+						JSONObject jsonObject=jsonArr.getJSONObject(i);
+						visaBean=new VisaBean();
+						
+						visaBean.setVisaBookId(jsonObject.getString("visaBookId"));
+						visaBean.setVisaStatusId(jsonObject.getString("visaStatusId"));
+						visaBean.setCountry1(jsonObject.getString("country"));
+						visaBean.setDocRecDt(jsonObject.getString("docRecDate"));
+						visaBean.setDurOfStay(jsonObject.getString("durOfStay"));
+						visaBean.setEntryType(jsonObject.getString("entryType"));
+						visaBean.setPptExpDt(jsonObject.getString("ppExpDate"));
+						visaBean.setPptNo(jsonObject.getString("pprtNo"));
+						visaBean.setVisaCharges(jsonObject.getString("visaCharges"));
+						visaBean.setVisaIssDt(jsonObject.getString("visaIssuDate"));
+						visaBean.setVisaRemarks(jsonObject.getString("visaRem"));
+						visaBean.setVisaType(jsonObject.getString("visaType"));
+						visaBean.setVisaValFrom(jsonObject.getString("visaValFrom"));
+						visaBean.setVisaValTo(jsonObject.getString("visaValTo"));
+						visaList.getVisaBean().add(visaBean);
+					}
+					JAXBContext jaxbContext = JAXBContext.newInstance(VisaBeanList.class);
+			        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			        StringWriter journeyWriter = new StringWriter();
+			        jaxbMarshaller.marshal(visaList, journeyWriter);
+			        visaXML=journeyWriter.toString();
+			        visaXML=visaXML.substring(56);
+	
+			        //System.out.println(visaXML);	
+				} catch (JSONException e) {
+					logger.info("[Group_PersonnelBookingServlet] VISA XML building failed !");
+					e.printStackTrace();
+				} catch (JAXBException e) {
+					logger.info("[Group_PersonnelBookingServlet] VISA XML building failed !");
+					e.printStackTrace();
+				} 
+				logger.info("[Group_PersonnelBookingServlet] VISA XML building block end.");
+			}
+			
+			if(!hInsuJson.equals("[]"))
+			{
+				logger.info("[Group_PersonnelBookingServlet] INSU XML building block start ---->");
+				InsuranceBean insuBean=null;
+				InsuranceBeanList<InsuranceBean> insuList=new InsuranceBeanList<InsuranceBean>();
+				
+				insuList.setInsuranceBean(new ArrayList <InsuranceBean>());
+				JSONArray jsonArr;
+				try 
+				{	jsonArr = new JSONArray(hInsuJson);
+					for(int i=0;i<jsonArr.length();i++)
+					{
+						JSONObject jsonObject=jsonArr.getJSONObject(i);
+						insuBean=new InsuranceBean();
+						
+						insuBean.setInsuBookId(jsonObject.getString("insuBookId"));
+						insuBean.setInsuStatus(jsonObject.getString("insuStatus"));
+						insuBean.setInsuCharges(jsonObject.getString("insuCharges"));
+						insuBean.setInsuEndDt(jsonObject.getString("insuEndDate"));
+						insuBean.setInsuPolNo(jsonObject.getString("insuPolNo"));
+						insuBean.setInsuRemarks(jsonObject.getString("insuRemarks"));
+						insuBean.setInsuStDt(jsonObject.getString("insuStDate"));
+						insuBean.setInsuType(jsonObject.getString("insuType"));
+						insuBean.setNominee(jsonObject.getString("nominee"));
+						insuBean.setRelation(jsonObject.getString("relation"));
+						insuList.getInsuranceBean().add(insuBean);
+					}
+					
+					JAXBContext jaxbContext = JAXBContext.newInstance(InsuranceBeanList.class);
+			        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			        StringWriter journeyWriter = new StringWriter();
+			        jaxbMarshaller.marshal(insuList, journeyWriter);
+			        insuXML=journeyWriter.toString();
+			        insuXML=insuXML.substring(56);
+	
+					//System.out.println(insuXML);	
+				} catch (JSONException e) {
+					logger.info("[Group_PersonnelBookingServlet] INSU XML building failed !");
+					e.printStackTrace();
+				} catch (JAXBException e) {
+					logger.info("[Group_PersonnelBookingServlet] INSU XML building failed !");
+					e.printStackTrace();
+				} 
+				logger.info("[Group_PersonnelBookingServlet] INSU XML building block end.");
+			}
+			if(!hAccJson.equals("[]"))
+			{
+				logger.info("[Group_PersonnelBookingServlet] ACC XML building block start ---->");
+				AccomodationBean accBean=null;
+				AccomodationBeanList<AccomodationBean> accList=new AccomodationBeanList<AccomodationBean>();
+				
+				accList.setAccomodationBean(new ArrayList <AccomodationBean>());
+				JSONArray jsonArr;
+				try 
+				{	jsonArr = new JSONArray(hAccJson);
+					for(int i=0;i<jsonArr.length();i++)
+					{
+						JSONObject jsonObject=jsonArr.getJSONObject(i);
+						accBean=new AccomodationBean();
+						
+						accBean.setAccBookId(jsonObject.getString("accBookId"));
+						accBean.setChkInDt(jsonObject.getString("chkInDate"));
+						accBean.setChkOutDt(jsonObject.getString("chkOutDate"));
+						accBean.setLocn(jsonObject.getString("location"));
+						accBean.setStayCharges(jsonObject.getString("stayCharges"));
+						accBean.setStayRemarks(jsonObject.getString("stayRemarks"));
+						accBean.setStayType(jsonObject.getString("stayType"));
+						accList.getAccomodationBean().add(accBean);
+					}
+					
+					JAXBContext jaxbContext = JAXBContext.newInstance(AccomodationBeanList.class);
+			        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			        StringWriter journeyWriter = new StringWriter();
+			        jaxbMarshaller.marshal(accList, journeyWriter);
+			        accXML=journeyWriter.toString();
+			        accXML=accXML.substring(56);
+	
+					//System.out.println(accXML);	
+				} catch (JSONException e) {
+					logger.info("[Group_PersonnelBookingServlet] ACC XML building failed !");
+					e.printStackTrace();
+				} catch (JAXBException e) {
+					logger.info("[Group_PersonnelBookingServlet] ACC XML building failed !");
+					e.printStackTrace();
+				}
+				logger.info("[Group_PersonnelBookingServlet] ACC XML building block end.");
+			}
+			
+			if(!hCnclJson.equals("[]"))
+			{
+				logger.info("[Group_PersonnelBookingServlet] CNCL TKT XML building block start ---->");
+				CancellationBean cnclBean=null;
+				CancellationBeanList<CancellationBean> cnclList=new CancellationBeanList<CancellationBean>();
+				
+				cnclList.setCancelBean(new ArrayList <CancellationBean>());
+				JSONArray jsonArr;
+				try 
+				{	jsonArr = new JSONArray(hCnclJson);
+					for(int i=0;i<jsonArr.length();i++)
+					{
+						JSONObject jsonObject=jsonArr.getJSONObject(i);
+						cnclBean=new CancellationBean();
+						
+						cnclBean.setTravelCnclId(jsonObject.getString("travelCnclId"));
+						cnclBean.setChkbox(jsonObject.getString("chkbox"));
+						cnclBean.setCnclCharges(jsonObject.getString("cnclCharges"));
+						cnclBean.setCnclReason(jsonObject.getString("cnclReason"));
+						cnclBean.seteTktNo1(jsonObject.getString("tktNo"));
+						cnclBean.setPnr1(jsonObject.getString("pnrNo"));
+						cnclBean.setRefundRemarks(jsonObject.getString("refundRemarks"));
+						cnclBean.setSecFrom2(jsonObject.getString("cnclSecFrom"));
+						cnclBean.setSecTo2(jsonObject.getString("cnclSecTo"));
+						cnclBean.setTktCnclDt(jsonObject.getString("tktCnclDate"));
+						cnclBean.setTktIssuDt(jsonObject.getString("tktIssuDate"));
+						cnclBean.setMailSentFlag(jsonObject.getString("mailSentFlag"));
+						cnclBean.setGrpUserId(jsonObject.getString("grpUserIds"));
+						
+						cnclList.getCancelBean().add(cnclBean);
+					}
+					JAXBContext jaxbContext = JAXBContext.newInstance(CancellationBeanList.class);
+			        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			        StringWriter journeyWriter = new StringWriter();
+			        jaxbMarshaller.marshal(cnclList, journeyWriter);
+			        cnclXML=journeyWriter.toString();
+			        cnclXML=cnclXML.substring(56);
+	
+					//System.out.println(cnclXML);	
+				} catch (JSONException e) {
+					logger.info("[Group_PersonnelBookingServlet] CNCL TKT XML building failed !");
+					e.printStackTrace();
+				} catch (JAXBException e) {
+					logger.info("[Group_PersonnelBookingServlet] CNCL TKT XML building failed !");
+					e.printStackTrace();
+				} 
+				logger.info("[Group_PersonnelBookingServlet] CNCL TKT XML building block end.");
+			}
+			
+			siteId		=	(String) request.getParameter("selectUnit")==null? "0" :request.getParameter("selectUnit") ;
+			siteName	=	(String) request.getParameter("hidsiteName")==null? "Personal" :request.getParameter("hidsiteName") ;
+			travelId	=	(String) request.getParameter("hidtravelID")==null? "-1" :request.getParameter("hidtravelID") ;
+			travellerID	=	(String) request.getParameter("hidtravellerId")==null? "-1" :request.getParameter("hidtravellerId") ;
+			trvlStusId	=	(String) request.getParameter("hidtravelStsId")==null? "2" :request.getParameter("hidtravelStsId") ;
+			tReqNo		=	(String) request.getParameter("hidtravelReqNo")==null? "PERSONAL" :request.getParameter("hidtravelReqNo") ;
+			remarks		=	(String) request.getParameter("hidtrRemark")==null? "" :request.getParameter("hidtrRemark") ;
+			lstUpdDt	=	(String) request.getParameter("hidLstModDt")==null? currentDate.trim() :request.getParameter("hidLstModDt") ;			// modified date
+			
+			if(siteId.equals("-2")) {
+				tReqNo = "MISCELLANEOUS";
+			} else if (siteId.equals("0")) {
+				tReqNo = "PERSONAL";
+			} else if (tBookId.equals("0") && !siteId.equals("-2") && !siteId.equals("0")){
+				tReqNo = siteName.trim()+"/PERSONAL";
+			}
+	
+			//System.out.println("siteId="+siteId+"  siteName="+siteName+"  travelId="+travelId+"  grpTrFlag="+grpTrFlag+"  trvlStusId="+trvlStusId+"  tReqNo="+tReqNo+"  remarks="+remarks+" lstUpdDt="+lstUpdDt);
+			
+			String actn			=	"";
+			
+			if(closeFlag)
+			{	actn			=	"UNLOCK";
+			} else {	
+				if(tBookId.equals("0"))
+				{	actn		=	"INSERT";
+				}else
+				{	actn		=	"UPDATE";
+				}
+			}
+			
+			travelerName=	(String) request.getParameter("paxName")==null? "0" :request.getParameter("paxName") ;
+			mobNo		=	(String) request.getParameter("mobileNo")==null? "" :request.getParameter("mobileNo") ;
+			dob			=	(String) (request.getParameter("dob")==null? "" :dbDateFormat(request.getParameter("dob"))) ;
+			frxDetail	=	(String) request.getParameter("forex")==null? "" :request.getParameter("forex") ;
+			bookedBy	=	hs.getValue("user_id") == null ? "" : (String)hs.getValue("user_id");
+			userId 		= 	bookedBy;
+			
+			//System.err.println("actn="+actn+"  travelerName="+travelerName+"  travelType="+travelType+"  mobNo="+mobNo+"  dob="+dob+"  frxDetail="+frxDetail+"  bookedBy="+bookedBy+" userId="+userId);
+			String ipAddr		=	request.getRemoteAddr();
+			int otktStatus		= 	-1;
+			
+			logger.info("[Group_PersonnelBookingServlet] PROC_UPDATE_T_TRAVEL_BOOKING_DETAIL calling started ---->");
+			
+			String dataSavingMsg	= "";
+			DbConnectionBean objCon	= new DbConnectionBean();
+			Connection con			= objCon.getConnection();
+			CallableStatement cStmt = null;
+			
+			try 
+			{	cStmt 	= con.prepareCall("{call PROC_UPDATE_T_TRAVEL_BOOKING_DETAIL(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");			
+				
+				cStmt.setString(1, tBookId);			
+				cStmt.setString(2, siteId);
+				cStmt.setString(3, travelId);			
+				cStmt.setString(4, travelType);
+				cStmt.setString(5, tReqNo);			
+				cStmt.setString(6, grpTrFlag);
+				cStmt.setString(7, travellerID);
+				cStmt.setString(8, travelerName);	
+				cStmt.setString(9, travelDate);			// min dept date
+				cStmt.setString(10, mobNo);
+				cStmt.setString(11, dob);
+				cStmt.setString(12, sector);			
+				cStmt.setString(13, frxDetail);
+				cStmt.setString(14, trvlStusId);			
+				cStmt.setString(15, remarks);
+				cStmt.setString(16, ticketXML);			
+				cStmt.setString(17, visaXML);
+				cStmt.setString(18, insuXML);			
+				cStmt.setString(19, accXML);
+				cStmt.setString(20, cnclXML);			
+				cStmt.setString(21, bookedBy);
+				cStmt.setString(22, lstUpdDt);	
+				cStmt.setString(23, userDetailsXML);	
+				cStmt.setString(24, actn);
+				cStmt.setString(25, userId);			
+				cStmt.setString(26, ipAddr);
+				cStmt.registerOutParameter(27,java.sql.Types.INTEGER);
+				
+				cStmt.executeUpdate();
+				otktStatus = cStmt.getInt(27);
+				request.setAttribute("otktStatus", otktStatus);
+				cStmt.close();
+				con.close();
+				//System.out.println("otktStatus= "+otktStatus);
+				if(otktStatus == 0)
+				{	String delimiter = ",";		
+					String sessionBookingRequestIds 			= null;
+				    String[] strsessionBookingRequestIdsTemp 	= null;
+				    
+				    ArrayList<String> sessionBookingRequestIdList = new ArrayList<String>();
+					//Map<String, Object> sessionData = SessionListener.getUserSessionData(hs.getId());
+					Map<String, Map<String, Object>> sessionDataMap = SessionListener.getAllUserSessionData();
+					Set<String> keySet = sessionDataMap.keySet();
+					
+					for(String userSessionID :  keySet)
+					{	Map<String, Object> sessionData = sessionDataMap.get(userSessionID);
+					
+						if(sessionData != null && sessionData.containsKey(SessionListener.BOOKING_REQUEST_ID_KEY_VALUE)) 
+						{	sessionBookingRequestIds = (String) sessionData.get(SessionListener.BOOKING_REQUEST_ID_KEY_VALUE);
+							strsessionBookingRequestIdsTemp = sessionBookingRequestIds.split(delimiter);
+							
+							for (int l = 0; l < strsessionBookingRequestIdsTemp.length; l++) 
+							{	sessionBookingRequestIdList.add(strsessionBookingRequestIdsTemp[l]);
+						    }
+							
+							if(sessionBookingRequestIdList.size() > 0) 
+							{	for(int m = 0; m < sessionBookingRequestIdList.size(); m++) 
+								{	if(sessionBookingRequestIdList.get(m).equals(tBookId))
+									{	sessionBookingRequestIdList.remove(m);
+									}
+								}
+							}
+							sessionBookingRequestIds  = StringUtils.join(sessionBookingRequestIdList, ',');
+							bookingStatusServlet.putLockBookingDataInSession(userSessionID, SessionListener.BOOKING_REQUEST_ID_KEY_VALUE,sessionBookingRequestIds);
+						}
+					}
+					logger.info("[Group_PersonnelBookingServlet] Data Saved Successfully [TravelBookId = "+tBookId+"] [ReqNo = "+tReqNo+"]\n");
+					
+					System.out.println("*******************************************************************************************\n"
+							+ "Data Saved Successfully [TravelBookId = "+tBookId+"] [ReqNo = "+tReqNo+"]\n"
+							+ "*******************************************************************************************\n");
+					
+					dataSavingMsg = "Requisition data saved successfully";
+					if(closeFlag){
+						dataSavingMsg = "Requisition unlocked successfully";
+					}
+				}
+				else
+				{	logger.info("[Group_PersonnelBookingServlet] Error"+otktStatus+": Data Saving Failed [TravelBookId = "+tBookId+"] [ReqNo = "+tReqNo+"]\n");
+				
+					System.out.println("*******************************************************************************************\n"
+						+ "Error"+otktStatus+": Data Saving Failed [TravelBookId = "+tBookId+"] [ReqNo = "+tReqNo+"]\n"
+						+ "*******************************************************************************************\n");
+					
+					dataSavingMsg = "Requisition data saving failed !";
+					if(closeFlag){
+						dataSavingMsg = "Requisition unlocked successfully";
+					}
+				}
+			} 
+			catch (SQLException e) 
+			{	
+				logger.info("[Group_PersonnelBookingServlet] Data Saving Failed [TravelBookId = "+tBookId+"] [ReqNo = "+tReqNo+"]\n");
+				
+				System.out.println("*******************************************************************************************\n"
+					+ "Data Saving Failed [TravelBookId = "+tBookId+"] [ReqNo = "+tReqNo+"]\n"
+					+ "*******************************************************************************************\n");
+				
+				dataSavingMsg = "Requisition unlocking failed !";
+				e.printStackTrace();
+			}
+			logger.info("[Group_PersonnelBookingServlet] PROC_UPDATE_T_TRAVEL_BOOKING_DETAIL calling ended.");
+			
+			String currDate				= new SimpleDateFormat("dd/MM/yyyy").format(date);
+			String bs_siteId 			= request.getParameter("hid_bs_siteId") == null ? "0" : request.getParameter("hid_bs_siteId");
+			String bs_reqNo 			= request.getParameter("hid_bs_reqNo") == null ? "" : request.getParameter("hid_bs_reqNo");
+			String bs_travelDateStr 	= request.getParameter("hid_bs_travelDateStr") == null  ? currDate : request.getParameter("hid_bs_travelDateStr") ;
+			String bs_travelType 		= request.getParameter("hid_bs_travelType") == null ? "A" : request.getParameter("hid_bs_travelType");
+			String bs_travellerId 		= request.getParameter("hid_bs_travellerId") == null ? "0" : request.getParameter("hid_bs_travellerId");
+			String bs_bookingStatus 	= (request.getParameter("hid_bs_bookingStatus") == null || "".equals(request.getParameter("hid_bs_bookingStatus"))) ? "0" : request.getParameter("hid_bs_bookingStatus");
+			String bs_bookedBy 			= (request.getParameter("hid_bs_bookedBy") == null || "".equals(request.getParameter("hid_bs_bookedBy"))) ? "0" : request.getParameter("hid_bs_bookedBy");
+			String bs_reportType 		= (request.getParameter("hid_bs_reportType") == null || "".equals(request.getParameter("hid_bs_reportType"))) ? "0" : request.getParameter("hid_bs_reportType");
+			String bs_travelStatus 		= (request.getParameter("hid_bs_travelStatus") == null || "".equals(request.getParameter("hid_bs_travelStatus"))) ? "10" : request.getParameter("hid_bs_travelStatus");
+			
+			logger.info("[Group_PersonnelBookingServlet] doPost block end.");
+			
+			response.sendRedirect("BookingStatusReport.jsp?trvlBookId="+tBookId+"&flag="+otktStatus+"&travelType="+travelType+"&cnclMailFlag="+cnclMailFlag+"&tReqNo="+tReqNo+"&siteName="+siteName+"&action="+actn+"&travelerName="+travelerName+"&etx_date="+bs_travelDateStr+"&etx_siteId="+bs_siteId+"&etx_travellerId="+bs_travellerId+"&etx_travelType="+bs_travelType+"&etx_reqNo="+bs_reqNo+"&etx_status="+bs_bookingStatus+"&etx_bookedBy="+bs_bookedBy+"&etx_reportType="+bs_reportType+"&etx_travelStatus="+bs_travelStatus+"&strMsg="+dataSavingMsg);
+		
+		} else if("ticketDetails".equalsIgnoreCase(action)) {
+			
+			String trvlBookId = request.getParameter("trvlBookId") == null ? "" : request.getParameter("trvlBookId");
+			String tktBookId  = request.getParameter("tktBookId") == null  ? "" : request.getParameter("tktBookId");
+			
+			try {
+				response.getWriter().print(getTicketDetails(tktBookId));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public String revDtStr(String str) {	
+		String dobDt 	= str.substring(0, 10);
+		String[] parts	= dobDt.split("-");
+		dobDt 			= parts[2]+"/"+parts[1]+"/"+parts[0];
+		return dobDt;
+	}
+	
+	private JSONObject getTicketDetails(String tktBookId) throws SQLException, JSONException
+	{
+		Statement stmt,stmt1	= null;
+		ResultSet rs,rs1		= null;
+		DbConnectionBean objCon	= new DbConnectionBean();
+		Connection con			= objCon.getConnection();
+		stmt					= con.createStatement(); 
+		stmt1					= con.createStatement(); 
+		
+		HashMap<String,String> dataMap = new HashMap<String,String>();
+		
+		
+		rs=stmt.executeQuery("SELECT Group_User_ID,Ticket_Book_ID, Sector_From, Sector_To, Class, Departure_Date, Departure_Time, Arrival_Date, Arrival_Time, AirLine_Name, PNR, E_Ticket_No, Basic_Fare, Taxes, Total_Fare, TBD.Booking_Status_ID, Remark FROM T_TRAVEL_TICKET_BOOKING_DETAIL TBD LEFT JOIN M_BOOKING_STATUS MBS ON (TBD.Booking_Status_ID=MBS.Booking_Status_ID) WHERE Ticket_Book_ID="+tktBookId+" order by departure_date,convert(time,departure_time),arrival_date,convert(time,Arrival_time)");
+		if(rs.next()) {	
+			
+			String ticketBookId = "";
+			String secFrom1 	= "";
+			String secTo1 		= "";
+			String cls 			= "";
+			String deptrDate 	= "";
+			String deptrTime 	= "";
+			String arrDate 		= "";
+			String arrTime 		= "";
+			String airline 		= "";
+			String pnr 			= "";
+			String eTktNo 		= "";
+			String basicFare 	= "";
+			String taxes 		= "";
+			String totFare 		= "";
+			String tktStatus 	= "";
+			String tktRemarks 	= "";
+			String grpUserIds 	= "";
+			String tktUsers 	= "";
+			
+			do {	
+				ticketBookId  	= rs.getString("Ticket_Book_Id")==null?"0":rs.getString("Ticket_Book_Id");
+				secFrom1 		= rs.getString("Sector_From")==null ? "":rs.getString("Sector_From");
+				secTo1 			= rs.getString("Sector_To")==null ? "":rs.getString("Sector_To");
+				cls 			= rs.getString("Class")==null ? "Economy":rs.getString("Class");
+				deptrDate 		= rs.getString("Departure_Date")==null ? "":revDtStr(rs.getString("Departure_Date"));
+				deptrTime 		= (rs.getString("Departure_Time")==null || rs.getString("Departure_Time").equals("")) ? "0100":rs.getString("Departure_Time");
+				arrDate 		= rs.getString("Arrival_Date") == null ? "":revDtStr(rs.getString("Arrival_Date"));
+				arrTime 		= (rs.getString("Arrival_Time")==null || rs.getString("Arrival_Time").equals("")) ? "0100":rs.getString("Arrival_Time");
+				airline 		= rs.getString("AirLine_Name")==null ? "":rs.getString("AirLine_Name");
+				pnr 			= rs.getString("PNR")==null ? "":rs.getString("PNR");
+				eTktNo 			= rs.getString("E_Ticket_No")==null ? "":rs.getString("E_Ticket_No");
+				basicFare 		= rs.getString("Basic_Fare")==null ? "0":rs.getString("Basic_Fare");
+				taxes 			= rs.getString("Taxes")==null ? "0":rs.getString("Taxes");
+				totFare 		= rs.getString("Total_Fare")==null ? "0":rs.getString("Total_Fare");
+				tktStatus		= rs.getString("Booking_Status_ID")==null ? "1":rs.getString("Booking_Status_ID");
+				tktRemarks 		= rs.getString("Remark")==null ? "":rs.getString("Remark");
+				grpUserIds		= rs.getString("Group_User_ID")==null ? "":rs.getString("Group_User_ID").trim();
+				
+				if(deptrDate.equals("01/01/1900")) {	
+					deptrDate="";
+				}
+				if(arrDate.equals("01/01/1900")) {	
+					arrDate="";
+				}
+				
+				deptrTime 	= deptrTime.replace(":", "");
+				arrTime 	= arrTime.replace(":", "");
+				
+				basicFare 	= Integer.toString(Math.round(Float.parseFloat(basicFare)));
+				taxes 		= Integer.toString(Math.round(Float.parseFloat(taxes)));
+				totFare 	= Integer.toString(Math.round(Float.parseFloat(totFare)));
+				
+				rs1 = stmt1.executeQuery("select STUFF((SELECT ','+ TGU.FIRST_NAME+' '+TGU.LAST_NAME as name FROM T_GROUP_USERINFO TGU WHERE CHARINDEX(','+CONVERT(VARCHAR,TGU.G_USERID)+',',','+TBD.Group_User_Id+',')>0 FOR XML path(''), type).value('.', 'varchar(max)')   ,1,1,'') AS Users from T_TRAVEL_TICKET_BOOKING_DETAIL TBD where TBD.Ticket_Book_ID="+tktBookId);
+				if(rs1.next()) {
+					tktUsers = rs1.getString("Users") == null ? "" : rs1.getString("Users").trim();
+				}
+				rs1.close();
+				
+				dataMap.put("tktReqDetailExists", "true");
+				dataMap.put("ticketBookId", ticketBookId.trim());
+				dataMap.put("secFrom1", secFrom1.trim());
+				dataMap.put("secTo1", secTo1.trim());
+				dataMap.put("cls", cls.trim());
+				dataMap.put("deptrDate", deptrDate.trim());
+				dataMap.put("deptrTime", deptrTime.trim());
+				dataMap.put("arrDate", arrDate.trim());
+				dataMap.put("arrTime", arrTime.trim());
+				dataMap.put("airline", airline.trim());
+				dataMap.put("pnr", pnr.trim());
+				dataMap.put("eTktNo", eTktNo.trim());
+				/*dataMap.put("basicFare", basicFare.trim());
+				dataMap.put("taxes", taxes.trim());*/
+				dataMap.put("totFare", totFare.trim());
+				dataMap.put("tktStatus", tktStatus.trim());
+				dataMap.put("tktRemarks", tktRemarks.trim());
+				dataMap.put("grpUserIds", grpUserIds.trim());
+				dataMap.put("tktUsers", tktUsers.trim());
+				
+			} while(rs.next());
+		}
+		JSONObject jsObj = new JSONObject(dataMap);		
+		return jsObj;	
+	}
+}

@@ -1,0 +1,35 @@
+a           
+{
+font-family:Verdana, Arial, Helvetica, sans-serif; 
+font-size:9px; 
+color:#00369B;
+text-decoration: underline; 
+font-weight:normal;
+}
+a:hover      
+{
+font-family:Verdana, Arial, Helvetica, sans-serif; 
+font-size:9px; 
+color:#00369B;
+text-decoration: underline; 
+font-weight:normal;
+
+}
+a:visited    
+{
+font-family:Verdana, Arial, Helvetica, sans-serif; 
+font-size:9px; 
+color:#00369B;
+text-decoration: underline; 
+font-weight:normal;
+
+}
+a:visited:hover
+{
+font-family:Verdana, Arial, Helvetica, sans-serif; 
+font-size:9px; 
+color:#00369B;
+text-decoration: underline; 
+font-weight:normal;
+
+}

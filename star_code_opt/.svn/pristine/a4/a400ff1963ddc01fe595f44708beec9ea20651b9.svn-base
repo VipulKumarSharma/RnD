@@ -1,0 +1,2210 @@
+body {
+	margin: 0 auto;
+	padding: 0 5px 0 5px;
+	color: #000000;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+div#main {
+	width: 99%;
+	margin: 5px 0 5px 0;
+	padding: 2px 2px;
+	border: 1px solid gray;
+	float: left;
+}
+
+fieldset {
+	border: 1px solid #e0dfdf;
+}
+
+input.textBoxCss {
+	width: 100%;
+	height: 20px;
+	margin: 0;
+	padding: 0;
+	line-height: 20px;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+	background: #ffffff;
+	border-radius: .35em;
+	border: 1px solid #686868;
+}
+
+select.comboBoxCss {
+	width: 100%;
+	height: 22px;
+	background: #ffffff;
+	margin: 0;
+	padding: 0 0 3px 0;
+	line-height: 22px;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+	border-radius: .35em;
+	border: 1px solid #686868;
+}
+
+textarea.textAreaCss {
+	width: 100%;
+	height: 47px;
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+	background: #fff;
+	border-radius: .35em;
+	border: 1px solid #d6d6d4;
+}
+
+textarea.textAreaCss2 {
+	width: 100%;
+	height: 20px;
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+	background: #fff;
+	border-radius: .35em;
+	border: 1px solid #d6d6d4;
+}
+
+textarea.textAreaCss3 {
+	width: 100%;
+	height: 58px;
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+	background: #fff;
+	border-radius: .35em;
+	border: 1px solid #d6d6d4;
+}
+
+textarea.textAreaCss4 {
+	width: 100%;
+	height: 30px;
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+	background: #fff;
+	border-radius: .35em;
+	border: 1px solid #686868;
+}
+
+td#left {
+	width: 60%;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+	border: 0px solid red;
+}
+
+td#mid {
+    width: 2%;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+	border: 0px solid green;	
+}
+
+td#right {
+	width: 38%;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+	border: 0px solid blue;
+}
+
+#bt-Dom {
+	width: 50%;
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #ffffff;
+}
+
+#bt-Int {
+	width: 50%;
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #ffffff;
+}
+
+.bt-RequestType {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+.bt-RequestType label {
+	cursor: pointer;
+	display: block;
+	font-size: 11px;
+	font-weight: bold;
+	height: 15px !important;
+	margin: 0 8px 0 0;
+	min-width: 42px;
+	padding: .3em .5em .3em .5em;
+	position: relative;
+	text-align: center;
+	width: 130px;
+}
+
+.bt-RequestType label.Dom {
+	background-color: #00a452;
+	-ms-border-radius: .25em 0 0 .25em;
+	-moz-border-radius: .25em 0 0 .25em;
+	-o-border-radius: .25em 0 0 .25em;
+	-webkit-border-radius: .25em 0 0 .25em;
+	border-radius: .25em 0 0 .25em;
+	color: #ffffff;
+	border: 2px solid #ffff00;
+}
+
+.bt-RequestType label.Int {
+	background-color: #0082bf;
+	-ms-border-radius: .25em 0 0 .25em;
+	-moz-border-radius: .25em 0 0 .25em;
+	-o-border-radius: .25em 0 0 .25em;
+	-webkit-border-radius: .25em 0 0 .25em;
+	border-radius: .25em 0 0 .25em;
+	color: #ffffff;
+	border: 2px solid #ffff00;
+}
+
+.bt-RequestType label.Dom.Disable, .bt-RequestType label.Int.Disable {
+	background-color: #e0d9bf;
+	-ms-border-radius: .25em 0 0 .25em;
+	-moz-border-radius: .25em 0 0 .25em;
+	-o-border-radius: .25em 0 0 .25em;
+	-webkit-border-radius: .25em 0 0 .25em;
+	border-radius: .25em 0 0 .25em;
+	color: #8f8f8f;
+	border: 1px solid #baab70;
+}
+
+.bt-RequestType label.Dom.Disable:hover, .bt-RequestType label.Int.Disable:hover
+	{
+	background-color: #e0d9bf;
+	-ms-border-radius: .25em 0 0 .25em;
+	-moz-border-radius: .25em 0 0 .25em;
+	-o-border-radius: .25em 0 0 .25em;
+	-webkit-border-radius: .25em 0 0 .25em;
+	border-radius: .25em 0 0 .25em;
+	color: #8f8f8f;
+	border: 1px solid #baab70;
+}
+
+.bt-RequestType label.Dom:hover {
+	background-color: #006f1c;
+}
+
+.bt-RequestType label.Dom.active {
+	background-color: #ffff80;
+	color: #000000;
+}
+
+.bt-RequestType label.Int:hover {
+	background-color: #004b97;
+}
+
+.bt-RequestType label.Int.active {
+	background-color: #ffff80;
+	color: #000000;
+}
+
+.bt-RequestType label input {
+	position: absolute;
+	-moz-opacity: 0;
+	filter: alpha(opacity : 0);
+	opacity: 0;
+}
+
+td#reqTypeBtn {
+	width: 5%;
+	margin: 0;
+	padding: 0;	
+}
+
+td#siteNmLabel {
+	width: 10%;
+	margin: 0;
+	padding: 5px 5px 0 5px;
+	text-align: right;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td#siteNm {
+	width: 26%;
+	margin: 0;
+	padding: 2px 10px 0 5px;
+}
+
+td#travelerNmLabel {
+	width: 14%;
+	margin: 0;
+	padding: 5px 5px 0 5px;
+	text-align: right;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td#travelerNm {
+	width: 22%;
+	margin: 0;
+	padding: 2px 10px 0 5px;
+}
+
+td#mataEurope {
+	width: 105px;
+	margin: 0;
+	padding: 3px 5px 3px 5px;
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #ffffff;
+	background-color:#ff0000;
+	border:2px solid #d90000;
+}
+
+td#meal {
+	width: 12%;
+	margin: 0;
+	padding: 0 10px 0 0;
+}
+
+td#costCentre {
+	width: 13%;
+	margin: 0;
+	padding: 0 8px 0 0;
+}
+
+td.city {
+	width: 13%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.date {
+	width: 6%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.timeMode {
+	width: 8%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.time {
+	width: 5%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.mode {
+	width: 6%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.trClass {
+	width: 8%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.trClass2 {
+	width: 5%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.flight {
+	width: 9%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.seatFlt {
+	width: 4%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.seatTrn1 {
+	width: 4%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.seatTrn2 {
+	width: 5%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.seatTrn3 {
+	width: 6%;
+	margin: 0;
+	padding: 5px 5px 0 0;
+}
+
+td.del {
+	width: 2%;
+	margin: 0;
+	padding: 5px 0 0 0;
+}
+
+td.del img{
+	cursor: pointer;
+}
+
+.bt-Del {
+	width: 100%;
+	margin: 0;
+	padding: 4px 5px 4px 5px;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #ffffff;
+	cursor: pointer;
+	background-color: #b22222;
+	border: 1px solid #ff2b2b;
+}
+
+.bt-Add {
+	width: auto;
+	margin: 10px 0 10px 0;
+	padding: 4px 7px 4px 7px;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #ffffff;
+	cursor: pointer;
+	background-color: #ff8000;
+	border: 1px solid #d56a00;
+}
+
+.bt-Add-Dom {
+	width: auto;
+	margin: 5px 0 0 0;
+	padding: 4px 7px 4px 7px;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #ffffff;
+	cursor: pointer;
+	background-color: #00a452;
+	border: 1px solid #459845;
+}
+
+.bt-Add-Int {
+	width: auto;
+	margin: 5px 0 0 0;
+	padding: 4px 7px 4px 7px;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #ffffff;
+	cursor: pointer;
+	background-color: #0082bf;
+	border: 1px solid #4B546A;
+}
+
+td#travelReason {
+	width: 40%;
+	margin: 0;
+	padding: 0;
+}
+
+td#billingApprover {
+	width: 45%;
+	margin: 0;
+	padding: 0 0 0 60px;
+}
+
+td.billingApproverLabel {
+	width: 20%;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.billingApproverCombo {
+	width: 60%;
+	margin: 0;
+	padding: 0 10px 0 0;
+}
+
+td.hrSpace6Px {
+	height: 6px;
+	margin: 0;
+	padding: 0;
+}
+
+td.hrSpace4Px {
+	height: 4px;
+	margin: 0;
+	padding: 0;
+}
+
+td.approverLevel1 {
+	width: 45%;
+	margin: 0;
+	padding: 0;
+}
+
+td.approverLevel2 {
+	width: 45%;
+	margin: 0;
+	padding: 0 0 0 10px;
+}
+
+td.approverLevel3 {
+	width: 45%;
+	margin: 0;
+	padding: 0 0 0 10px;
+}
+
+td.skipReason {
+	width: 45%;
+	margin: 0;
+	padding: 0;
+}
+
+td.defaultAppr {
+	width: 20%;
+	margin: 0;
+	padding: 0 0 0 20px;
+	font-size: 11px;
+	color: #373737;
+	text-align: right;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+label.requiredInput {
+	font-size: 12px;
+	font-weight: normal;
+	color: #373737;
+	text-align: left;
+}
+
+.checkbox {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.checkbox label {
+	background-color: rgb(220, 220, 220);
+	cursor: pointer;
+	display: block;
+	font-size: 11px;
+	font-weight: normal;
+	height: 14px !important;
+	margin: 0;
+	min-width: 40px;
+	padding: .45em 0 .45em;
+	position: relative;
+	text-align: center;
+	width: 100%;
+}
+
+.checkbox label:hover {
+	width: 100%;
+	background-color: #f07b05;
+	color: #ffffff;
+}
+
+.checkbox label.no {
+	width: 100%;
+	background-color: #dcdcdc;
+	-ms-border-radius: 0 .25em .25em 0;
+	-moz-border-radius: 0 .25em .25em 0;
+	-o-border-radius: 0 .25em .25em 0;
+	-webkit-border-radius: 0 .25em .25em 0;
+	border-radius: 0 .25em .25em 0;
+	color: #000000;
+}
+
+.checkbox label.no:hover, .checkbox label.no.active {
+	width: 100%;
+	background-color: #b22222;
+	color: #ffffff;
+}
+
+.checkbox label.yes {
+	width: 100%;
+	background-color: #95afb9;
+	-ms-border-radius: .25em 0 0 .25em;
+	-moz-border-radius: .25em 0 0 .25em;
+	-o-border-radius: .25em 0 0 .25em;
+	-webkit-border-radius: .25em 0 0 .25em;
+	border-radius: .25em 0 0 .25em;
+	color: #000000;
+}
+
+.checkbox label.yes:hover, .checkbox label.yes.active {
+	width: 100%;
+	background-color: #006400;
+	color: #ffffff;
+}
+
+.checkbox label.yes.disable, .checkbox label.no.disable {
+	background-color: #e0d9bf;
+	-ms-border-radius: .25em 0 0 .25em;
+	-moz-border-radius: .25em 0 0 .25em;
+	-o-border-radius: .25em 0 0 .25em;
+	-webkit-border-radius: .25em 0 0 .25em;
+	border-radius: .25em 0 0 .25em;
+	color: #ffffff;
+}
+
+.checkbox label input {
+	position: absolute;
+	-moz-opacity: 0;
+	filter: alpha(opacity : 0);
+	opacity: 0;
+}
+
+td.journyDetailLabel {
+	width: 20%;
+	margin: 0;
+	padding: 1px 0 1px 3px;
+	border:1px solid #ffffff;
+}
+
+td.journyDetailRadio {
+	width: 5%;
+	margin: 0;
+	padding: 1px 10px 1px 10px;
+	border:1px solid #ffffff;
+}
+
+td.requiredInputBox1 {
+	width: 15%;
+	margin: 0;
+	padding: 1px 0 1px 3px;
+}
+
+td.requiredInputBox2 {
+	width: 25%;
+	margin: 0;
+	padding: 1px 0 1px 0;
+}
+
+td.requiredInputBox3 {
+	width: 18%;
+	margin: 0;
+	padding: 1px 0 1px 0;
+}
+
+td.requiredInputBox4 {
+	width: 27%;
+	margin: 0;
+	padding: 1px 0 1px 0;
+}
+
+td.requiredRadioBoxleft {
+	width: 5%;
+	margin: 0;
+	padding: 1px 10px 1px 10px;
+}
+
+td.requiredRadioBoxRight {
+	width: 5%;
+	margin: 0;
+	padding: 1px 5px 1px 10px;
+}
+
+td.requiredRadioBoxDefault {
+	width: 5%;
+	margin: 0;
+	padding: 0px 5px 0px 0;
+	vertical-align: top;
+}
+
+td.pipe {
+	width: 1%;
+	margin: 0;
+	padding: 1px 20px 1px 0;
+}
+
+td.accomComboBoxHotel {
+	width: 5%;
+	margin: 0;
+	padding: 6px 5px 0 0;
+	vertical-align: top;
+}
+
+td.accomComboBoxCurr {
+	width: 5%;
+	margin: 0;
+	padding: 6px 5px 0 0;
+	vertical-align: top;
+}
+
+td.accomInputBoxBudget {
+	width: 8%;
+	margin: 0;
+	padding: 6px 5px 0 0;
+	vertical-align: top;
+}
+
+td.accomInputBoxDate {
+	width: 6%;
+	margin: 0;
+	padding: 6px 5px 0 0;
+	vertical-align: top;
+}
+
+td.accomInputBoxPrefPlc {
+	width: 20%;
+	margin: 0;
+	padding: 6px 5px 0 0;
+	vertical-align: top;
+}
+
+td.accomTextAreaRemark {
+	width: 59%;
+	margin: 0;
+	padding: 4px 5px 6px 7px;
+	vertical-align: top;
+}
+
+td.siteNamelabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.siteNameInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.firstNamelabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.firstNameInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.lastNamelabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.lastNameInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.designationlabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.designationInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.contactNoLabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 0 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.contactNoInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.genderlabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.genderInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.genderInputRadio {
+	width: 2%;
+	margin: 0;
+	padding: 0 2px 0 0;
+}
+
+td.genderInputlabel {
+	width: 18%;
+	margin: 0;
+	padding: 0 30px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+	vertical-align: middle;
+}
+
+td.mealPrefLabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.mealPrefInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.costCenterLabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 0 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.costCenterInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.projectNoLabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 0 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.projectNoInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.reasonForTrvLabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.reasonForTrvInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.completeNameslabel {
+	width: 100%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	line-height:18px;
+	color: #373737;
+}
+
+td.firstNameslabel {
+	width: 27%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.firstNamesInput {
+	width: 27%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+
+td.lastNameslabel {
+	width: 27%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.lastNamesInput {
+	width: 27%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+
+td.passportNamelabel {
+	width: 12%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.passportNameInput {
+	width: 12%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+
+td.nationalitylabel {
+	width: 10%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+td.nationalityInput {
+	width: 10%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+td.placeOfIssueLabel {
+	width: 18%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.placeOfIssueInput {
+	width: 18%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+
+td.passportNoLabel {
+	width: 12%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.passportNoInput {
+	width: 12%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+
+td.placeIssueLabel {
+	width: 14%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.placeIssueInput {
+	width: 14%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+td.dateOfIssuelabel {
+	width: 6%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+td.dateOfIssueInput {
+	width: 6%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+td.dateOfExpiryLabel {
+	width: 6%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+td.dateOfExpiryInput {
+	width: 6%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+td.dobLabel {
+	width: 6%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+td.dobInput {
+	width: 6%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+td.visaExistsLabel {
+	width: 4%;
+	margin: 0;
+	padding: 0 0 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+td.visaExistsInput {
+	width: 4%;
+	margin: 0;
+	padding: 0 0 0 0;
+	vertical-align: top;
+}
+td.emigrationExistsInput {
+	width: 4%;
+	margin: 0;
+	padding: 0 0 0 0;
+	vertical-align: top;
+}
+td.insuranceExistsInput {
+	width: 4%;
+	margin: 0;
+	padding: 0 0 0 0;
+	vertical-align: top;
+}
+table.visaExistTbl{
+	width: 30%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.insuranceExistTbl{
+	width: 30%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.emigrationExistTbl{
+	width: 30%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+td.permanentAddLabel {
+	width: 12%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.permanentAddInput {
+	width: 12%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+td.currentAddLabel {
+	width: 10%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+td.currentAddInput {
+	width: 10%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+td.passportDateLabel {
+	width: 8%;
+	margin: 0;
+	padding: 0 0 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.passportDateInput {
+	width: 8%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.airlineNameLabel {
+	width: 12%;
+	margin: 0;
+	padding: 0 0 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.airlineNameInput {
+	width: 12%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.airlineNoLabel {
+	width: 8%;
+	margin: 0;
+	padding: 0 0 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.airlineNoInput {
+	width: 8%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.approverLabel {
+	width: 40%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.approverInput {
+	width: 40%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.reasonForSkipLabel {
+	width: 100%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.reasonForSkipInput {
+	width: 100%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	vertical-align: top;
+}
+
+td.defaultApproverLabel {
+	width: 100%;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+
+td.bahnCardNoLabel {
+	width: 13%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.bahnCardNoInput {
+	width: 13%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+td.bahnCardValidityLabel {
+	width: 8%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.bahnCardValidityInput {
+	width: 8%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+td.bahnCardDiscLabel {
+	width: 9%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.bahnCardDiscInput {
+	width: 9%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+td.bahnCardClassLabel {
+	width: 3%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.bahnCardClassInput {
+	width: 3%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+td.bahnCardOnlineLabel {
+	width: 12%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.bahnCardOnlineInput {
+	width: 12%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+td.flightChkBaggagecLabel {
+	width: 7%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.flightChkBaggagecInput {
+	width: 7%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+td.flightChangeableLabel {
+	width: 8%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.flightChangeableInput {
+	width: 8%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+td.flightRefundableLabel {
+	width: 8%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+
+td.flightRefundableInput {
+	width: 8%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+td.rentCarDateLabel {
+	width: 8%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+td.carClassInput {
+	width: 8%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+td.rentCarDateInput {
+	width: 8%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+td.rentCarTimeLabel {
+	width: 15%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+td.rentCarTimeInput {
+	width: 15%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+td.rentCarCityLabel {
+	width: 20%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+td.rentCarCityInput {
+	width: 20%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+td.rentCarLocLabel {
+	width: 9%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+td.rentCarLocInput {
+	width: 9%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+td.rentCarMobileInput{
+	width: 13%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+td.rentCarRoutingInput{
+	width: 13%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+
+td.rentCarGpsLabel {
+	width: 13%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+td.rentCarGpsInput {
+	width: 3%;
+	margin: 0;
+	padding: 0 5px 0 0;
+	vertical-align: top;
+}
+
+
+td.rentCarCatLabel {
+	width: 11%;
+	margin: 0;
+	padding: 0 10px 0 0px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+td.rentCarCatInput {
+	width: 11%;
+	margin: 0;
+	padding: 0 10px 0 0px;
+	vertical-align: top;
+}
+td.rentCarDelBtn {
+	width: 2%;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+
+td.rentCarDelBtn img{
+	cursor: pointer;
+}
+
+td.rentCarRmrkLabel {
+	width: 12%;
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;;
+	color: #373737;
+}
+td.rentCarRmrknput {
+	width: 59%;
+	margin: 0;
+	padding: 2px 5px 2px 2px;
+	vertical-align: top;
+}
+td.exColBar {
+	width: 100%;
+	height: 20px;
+	background-color: #aea899;
+	border: 1px solid #d6d6d4;
+	cursor: pointer;
+}
+td.exColBar td.exColBarText {
+	width: 290px;
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #111111;
+}
+td.exColBar td.exColBarIcon {
+	width: 3px;
+	margin: 0;
+	padding: 2px 2px 0 5px;
+}
+.hide {
+	display: none;
+}
+.show {
+	visibility: visible;
+}
+td.perDetl {
+	width: 100%;
+	height: 20px;
+	margin: 0;
+	padding: 0 0 0 5px;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+	text-align: left;
+	background-color: #d4d0c8;
+	border: 1px solid #cbcbcb;
+}
+td.rewrdDett {
+	width: 100%;
+	height: 20px;
+	margin: 0;
+	padding: 0 0 0 5px;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+	text-align: left;
+	background-color: #e4e1dc;
+	border: 1px solid #cbcbcb;
+}
+td.jrnDetl {
+	width: 100%;
+	height: 20px;
+	margin: 0;
+	padding: 0 0 0 5px;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+	text-align: left;
+	background-color: #d4d0c8;
+	border: 1px solid #cbcbcb;
+}
+td.requestType {
+	padding: 0 0 0 6px;
+	text-align: left;
+}
+td.journyType {
+	padding: 0 0 0 15px;
+	text-align: left;
+}
+td.journyInner {
+	padding: 0 0 0 20px;
+	text-align: left;
+}
+td.journyInner2 {
+	padding: 0 0 0 16px;
+	text-align: left;
+}
+td.itenaryRemark {
+	width: 59.4%;
+	margin: 0;
+	padding: 6px 5px 0 18px;
+	vertical-align: top;
+}
+.bt-SubmitToWorkflow-Dom {
+	width: 100%;
+	margin: 0;
+	padding: 4px 7px 4px 7px;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #ffffff;
+	cursor: pointer;
+	background-color: #00a452;
+	border: 1px solid #459845;
+}
+.bt-SubmitToWorkflow-Int {
+	width: 100%;
+	margin: 0;
+	padding: 4px 7px 4px 7px;
+	font-size: 11px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #ffffff;
+	cursor: pointer;
+	background-color: #0082bf;
+	border: 1px solid #4B546A;
+}
+td.submitToWorkflow {
+	width: auto;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+table.personalDetailHeaderTbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.personalDetailInnerTbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.personalDetailGenderTbl {
+	width: 30%;
+	border: 0;
+	cellspacing: 5;
+	cellpadding: 0;
+}
+table.rewardCardDetailMainTbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 2;
+	cellpadding: 0;
+}
+table.rewardCardDetailInnerTbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 5;
+	cellpadding: 0;
+}
+table.rewardCardDetailInner1Tbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 2;
+	cellpadding: 0;
+}
+td.rewardCardDetailInner2Tbl {
+	width: 50%;
+	text-align:left;
+}
+table.rewardCardDetailInner3Tbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+td.rewardCardDetailInner4Tbl {
+	width: 50%;
+	text-align:right;
+}
+table.rewardCardDetailInner5Tbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+td.rewardCardDetailInner6Tbl {
+	width: 50%;
+	text-align:left;
+}
+table.rewardCardDetailInner7Tbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+td.rewardCardDetailInner8Tbl {
+	width: 50%;
+	text-align:left;
+}
+table.rewardCardDetailInner9Tbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailMainTbl {
+	width: 100%;
+	border: 0;
+	cellspacing: 2;
+	cellpadding: 0;
+}
+table.journyDetailHeaderTbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 5;
+	cellpadding: 0;
+}
+table.journyDetailFltMainTbl{
+	width: 230px;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailFltInner1Tbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+	padding: 0 0 0 5px;
+}
+table.journyDetailFltInner2Tbl{
+	width: 88%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailFltInner3Tbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailFltInner4Tbl{
+	width: 47%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailTrnMainTbl{
+	width: 230px;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailTrnInnerTbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+	padding: 0 0 0 5px;
+}
+table.journyDetailTrnInner1Tbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailTrnInner2Tbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailTrnInner3Tbl{
+	width: 200px;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailTrnInner4Tbl{
+	width: 600px;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailRentCarMainTbl{
+	width: 230px;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailRentCarInnerTbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+	padding: 0 0 0 5px;
+}
+table.journyDetailRentCarInner1Tbl{
+	width: 78%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+	text-align: left;
+}
+table.journyDetailRentCarInner2Tbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+	margin-left: 5px;
+	margin-bottom: 0px;
+	
+}
+table.journyDetailRentCarInner3Tbl{
+	width: 35%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+table.journyDetailRentCarInner4Tbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailAccomodationMainTbl{
+	width: 230px;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.journyDetailAccomodationInnerTbl{
+	width: 62%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+	padding: 0 0 0 5px;
+}
+
+table.passportMainTbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+table.passportHeaderTbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 5;
+	cellpadding: 0;
+}
+table.passportInnerTbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 2;
+	cellpadding: 0;
+}
+table.passportInner1Tbl{
+	width: 100%;
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+
+.pageHead {
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #373737;
+}
+.labelText {
+	margin: 0;
+	padding: 0 0 5px 0;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #111111;
+}
+.formheadDN {
+	font-weight: bold;
+	font-size: 11px;
+	background: #aea899;
+	color: #373737;
+	border: #a7a7a7 1px solid;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.pageHeadDN {
+	padding-left: 0px;
+	font-weight: bold;
+	font-size: 12px;
+	color: #373737;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+ul.pagebullet {
+	margin: 0;
+	padding: 0 0 0 15px;
+	list-style-image: url(../images/bullet.gif);
+	border: 0px solid red;
+}
+ul.pagebullet li {
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #111111;
+	border: 0px solid red;
+}
+.pagebulletDN {
+	padding-left: 15px;
+	list-style-image: url(../images/bullet.gif);
+}
+.defaultAppTr {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	background: #d4d0c8;
+	font-size: 11px;
+	color: #147CAF;
+	font-weight: bold;
+	line-height: 15px;
+}
+.oddTr1 {
+	background: #eeeeee;
+}
+.evenTr2 {
+	background: #f7f7f7;
+}
+.defaultAppTrTxt {
+	padding: 0 0 0 5px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #373737;
+	font-weight: normal;
+	line-height: 15px;
+}
+.defaultAppTbl {
+	border: #a7a7a7 1px solid;
+}
+
+.statscontainer_div {
+	position: absolute;
+	top: 0px;
+	right: 10px;
+	width: 430px;
+	height: 280px;
+	display: block;
+	z-index: 10000;
+}
+#statscontainer_iframe {
+	position: absolute;
+	top: 0%;
+	right: 0%;
+	width: 430px;
+	height: 280px;
+}
+
+#tblItineraryFltInter .prototypeRowItineraryFlt {
+	display: none;
+}
+#tblItineraryFltInter .itineraryDataRowFlt {
+	margin: 0;
+	padding: 0;
+}
+#tblItineraryTrnInter .prototypeRowItineraryTrn {
+	display: none;
+}
+#tblItineraryTrnInter .itineraryDataRowTrn {
+	margin: 0;
+	padding: 0;
+}
+#tblAccomodation .accomodationDataRow {
+	margin: 0;
+	padding: 0;
+}
+#tblAccomodation .prototypeRowAccomodation {
+	display: none;
+}
+#tblRentCar .rentCarDataRow {
+	margin: 0;
+	padding: 0;
+}
+#tblRentCar .prototypeRowRentCar {
+	display: none;
+}
+
+
+.fieldSetCSS{
+	border: 1px solid #101010;
+	padding:2px 8px 8px 8px;
+}
+
+td.grpSrNo{
+	width: 1%;
+	margin: 0;
+	padding: 5px 0 0 0;	
+}
+
+td.grpFirstLastName {
+	width: 17%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpGender {
+	width: 8%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpMobileNo {
+	width: 10%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpFrequentFlyer {
+	width: 13%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpMealPref {
+	width: 14%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpPassportNo {
+	width: 17%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpNationality {
+	width: 17%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpIssuePlace {
+	width: 16%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpIssueDate {
+	width: 7%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpExpiryDate {
+	width: 7%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpDOB {
+	width: 7%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+td.grpVisaAndDelBtn {
+	width: 10%;
+	margin: 0;
+	padding: 5px 6px 0 0;
+}
+
+
+td.grpVisaExists {
+	width: 8%;
+	margin: 0;
+	padding: 0 0 0 0;
+}
+
+td.grpDelBtn {
+	width: 2%;
+	margin: 0;
+	text-align:right;
+	padding: 1px 0 0 0;
+}
+
+td.grpDelBtn img{
+	cursor: pointer;
+}
+
+.grpSrNoHyphen {
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #f80009;
+}
+
+.grpSrNoCount {
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+}
+
+#groupGuestDetailTbl .prototypeRowGroupGuestDetail {
+	display: none;
+}
+#groupGuestDetailTbl .groupGuestDetailDataRow {
+	margin: 0;
+	padding: 0;
+}
+
+
+.approverNotExists {
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+font-weight: bold;
+color:#dc1f28;
+background:#f7f7f7;
+line-height:15px;
+}
+
+td.ttfLabel {
+	width: 10%;	
+	margin: 0;
+	padding: 0px 20px 0px 3px;
+	font-size: 11px; 
+	font-weight : bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	color: #373737;
+	text-align: left; 
+	}
+	
+td.ttfCurrnLabel {
+	width: 6%;	
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size:11px;
+	font-weight : normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	color:#373737;	
+	}
+	
+td.ttfCurrnCombo {
+	width: 15%;	
+	margin: 0;
+	padding: 0 60px 0 0;
+	}
+	
+td.ttfTotalFarelabel {
+	width: 6%;	
+	margin: 0;
+	padding: 0 10px 0 0;
+	text-align: left;
+	font-size:11px;
+	font-weight : normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	color:#373737;	
+	}
+	
+td.ttfTotalFareBox {
+	width: 8%;	
+	margin: 0;
+	padding: 0;
+	}

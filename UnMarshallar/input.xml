@@ -1,0 +1,14 @@
+<NEWDATASET>
+  <UserBean>
+    <NAME>Rajay Kumar</NAME>
+    <DOB>1987-02-03</DOB>
+    <DESIG>Project Manager</DESIG>
+    <MOBILE_NO>9856986523</MOBILE_NO>
+  </UserBean>
+  <UserBean>
+    <NAME>Varun Kumar</NAME>
+    <DOB>1989-09-27</DOB>
+    <DESIG>Team Leader</DESIG>
+    <MOBILE_NO>9754856566</MOBILE_NO>
+  </UserBean>
+</NEWDATASET>

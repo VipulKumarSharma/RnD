@@ -1,0 +1,64 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<HTML>
+<HEAD>
+<TITLE>HELP</TITLE>
+
+<script language="JavaScript" src="/gic/Pages/js/validation.js?buildstamp=2_0_0"></script>
+
+
+<link href="style/main.css?buildstamp=2_0_0" rel="stylesheet" type="text/css">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" text="#000000" background="images/inner_BG.gif?buildstamp=2_0_0" leftmargin="15" topmargin="5" marginwidth="15" marginheight="5">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+ 
+</table>
+<table width="100%" border="0" cellspacing="4" cellpadding="4">
+  <tr> 
+    <td class="text1" colspan="2" height="30"> 
+      <table width="100%" border="0" cellpadding="8" cellspacing="10" class="formbottom">
+        <tr> 
+          <td bgcolor="#d21e25" class="text1"> 
+            <p style="color:#ffffff;"><b>The Travel requisition Returned by Me Page allows a User/Administrator to view the necessary informations of the travel requisition Returned by Him/Her.</b></p>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="5" cellspacing="8" class="formbottom">
+        <tr align="left"> 
+          <td bgcolor="#f08012"><b><a href="#1"><font color="#FFFFFF"> Travel Requisitions Returned by Me</font></a></b></td>
+        
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td class="text1" colspan="2" height="30"> 
+      <table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <tr valign="top"> 
+          <td width="20%" height="30" bgcolor="#5a5959" class="formTit"> 
+          Travel Requisitions Returned by Me
+          <br></td>
+          <td width=80% height="30" bgcolor="#FDF9FA" class="formtxt2"> 
+            <p>This page shows the information related to each travel requisition that are Returned by the <b>Approver/User</b> on the <b>STARS</b>.</p><br>
+            <ol>
+              <li><b><a name="1a"></a>All</b> - It allows the user to view all the neceesaary information of ALL the requisition which are Returned by Him/Her
+                                
+                                  <br><br>   </li>
+              
+              <li><b><a name="1b"></a>Selected Period</b> - It allows the user to view all the neceesaary information of the requisition which are Returned by Him/Her in the selected period.<br>
+                                                               The period can be selected by picking the dates into the fields FROM and TILL from the STARS date picker. 
+                <br><br>
+              </li>
+              <li><b><a name="1c"></a>Generate Report</b> - To view all the neceesaary information of the requisition which are Returned by the User ,select your preference and click on the button Generate report.<br>
+                <br> <br>
+              </li>
+                               
+            </ol>
+            <p align="right"><b>[ <a href="#">TOP</a> ]&nbsp;</b></p>
+          </td>
+        </tr>
+        
+                 
+
+</table>
+</BODY>
+</HTML>

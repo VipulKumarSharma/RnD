@@ -1,0 +1,24 @@
+<!--
+/***************************************************
+ *The information contained here in is confidential and 
+ * proprietary to MIND and forms the part of the MIND 
+ *Author				:SANJEET KUMAR
+ *Date of Creation 		:17 JULY 2007
+ *Description 			:User Validation for STAR 
+ *Purspose				: For handling the error in case policy not uploaded
+ *Revision History		: 
+ *******************************************************/
+-->
+<html>
+
+<head><title>  Error Page</title></head>
+
+<body>
+<h1>
+
+The requested policy does not exist
+
+
+
+</body>
+</html>

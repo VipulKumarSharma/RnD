@@ -1,0 +1,83 @@
+.ui-helper-hidden {
+	display: none;
+}
+
+.ui-helper-hidden-accessible {
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+.ui-autocomplete {
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: default;
+	width: 250px;
+	height: expression(this.scrollHeight < 138 ? "auto" : "137px");
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.ui-menu {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: block;
+	text-decoration: none;
+}
+
+.ui-menu .ui-menu-item  a {
+	vertical-align: text-top;
+	text-decoration: none;
+	display: block;
+	margin: 0;
+	padding: 0 10px 0 5px;
+	line-height: 22px;
+	font-weight: normal;
+	border-bottom: 1px solid #d9d7d0;
+}
+
+.ui-menu .ui-menu-item a.ui-state-focus {
+	color: #000000;
+	background: #d9d7d0;
+	outline: none;
+}
+
+.ui-widget {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+.ui-widget .ui-widget {
+	font-size: 11px;
+}
+
+.ui-widget input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+.ui-widget-content {
+	border-top: 1px solid #d9d7d0;
+	border-left: 1px solid #d9d7d0;
+	border-right: 1px solid #d9d7d0;
+	background-color: #e2e0dc;
+	color: #000000;
+}
+
+.ui-autocomplete {
+	max-height: 116px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+* html .ui-autocomplete {
+	height: 116px;
+}
+

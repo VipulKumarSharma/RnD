@@ -1,4 +1,4 @@
-package CollectionFramework.List_Interface;
+package CollectionFramework.List_Interface.arrayList;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

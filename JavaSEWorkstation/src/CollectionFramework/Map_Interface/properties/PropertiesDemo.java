@@ -1,4 +1,4 @@
-package CollectionFramework.Map_Interface;
+package CollectionFramework.Map_Interface.properties;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

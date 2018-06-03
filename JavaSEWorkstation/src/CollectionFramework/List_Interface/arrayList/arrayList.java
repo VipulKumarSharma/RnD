@@ -1,4 +1,4 @@
-package CollectionFramework.List_Interface;
+package CollectionFramework.List_Interface.arrayList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +29,7 @@ public class arrayList {
 		int intValue;
 		Object obj;
 		boolean bool;
+		
 		ArrayList<String> arrayList = new ArrayList<>(12);
 		
 		bool = arrayList.add("A");

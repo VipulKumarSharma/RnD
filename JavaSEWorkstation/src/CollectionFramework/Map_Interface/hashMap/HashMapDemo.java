@@ -1,4 +1,4 @@
-package CollectionFramework.Map_Interface;
+package CollectionFramework.Map_Interface.hashMap;
 
 import java.awt.Color;
 import java.util.ArrayList;

@@ -12,9 +12,9 @@ public class Arraylist_Serialization {
 	
 	public static void main(String[] args) {
 		
-		ArrayList<Integer> arrList1 	= new ArrayList<Integer>(Arrays.asList(5,1,2,4,3));
 		FileOutputStream fos		= null;
 		ObjectOutputStream oos		= null;
+		ArrayList<Integer> arrList1 = new ArrayList<Integer>(Arrays.asList(5,1,2,4,3));
 		
 		try {
 			fos = new FileOutputStream("serialized_ArrayList_File");

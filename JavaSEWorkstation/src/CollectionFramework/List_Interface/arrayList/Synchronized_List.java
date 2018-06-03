@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Syncronized_List {
+public class Synchronized_List {
 
 	public static void main(String[] args) {
 		
@@ -18,7 +18,7 @@ public class Syncronized_List {
 		
 		
 		synchronized (syncList) {
-			/* Iterator should be in synchronized block in this type of synchronization */
+			/* Always Iterate the List in synchronized block */
 			
 			System.out.println("Iterating syncronized List in syncronized block");
 			System.out.println("------------------------------------------");

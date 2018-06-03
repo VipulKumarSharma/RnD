@@ -9,7 +9,7 @@ public class PropertiesDemo {
 
 	public static void main(String[] args) throws IOException {
 		
-		StringBuilder filePath	= new StringBuilder("src\\CollectionFramework\\Properties\\config.prop");
+		StringBuilder filePath	= new StringBuilder("src/CollectionFramework/Map_Interface/properties/config.prop");
 		FileInputStream fis 	= new FileInputStream(filePath.toString());
 		Properties p 			= new Properties();
 		
